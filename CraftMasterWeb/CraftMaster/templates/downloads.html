@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>Downloads - CraftMaster</title>
+  </head>
+  <body>
+
+
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: rgba(126, 237, 154, 0.5); margin-left: auto;margin-right:auto">
+        <a class="navbar-brand" href="index"><img src ="{% static 'icon.png' %}" width = 60px height = 60px></img></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" style="width: 160px;" href="index"><p class="h4">CraftMaster</p><span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="width: 120px;"  href="downloads">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="width: 100px;"  href="https://github.com/RexWangSida/CraftMaster/tree/master">Source</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="width: 150px;"  href="https://github.com/RexWangSida/CraftMaster/wiki">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id ="navbarDropdownMenuLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                About
+              </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"style="background-color: rgba(126, 237, 154,0.5);">
+                  <a class="dropdown-item" href="team">Development Team</a>
+                  <a class="dropdown-item" href="https://github.com/fogleman/Minecraft">Original Project</a>
+                </div>
+
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+  <div class = "row" style="margin-top: 200px;margin-bottom: 200px;">
+      <div class="col">
+        <div class="container" >
+          <center><div class="card mb-3 shadow" style="max-width: 400px;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="{% static 'windows.png' %}" class="card-img" alt="..." style="margin: 20px;">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Windows Version 1.0</h5>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <a href="{% static 'windowstest.png' %}" download>
+                    <button type="button" class="btn btn-success"><img src="cloud-download.svg"alt="" width="20" height="20" title="cloud">  Download</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div></center>
+        </div>
+      </div>
+
+
+      <div class="col">
+        <div class="container" >
+          <center><div class="card mb-3 shadow" style="max-width: 400px;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="{% static 'mac.png' %}" class="card-img" alt="..."style="margin: 20px">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Mac Version 1.0</h5>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <a href="{% static 'mactest.png' %}" download>
+                    <button type="button" class="btn btn-success"><img src="cloud-download.svg"alt="" width="20" height="20" title="cloud">  Download</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div></center>
+        </div>
+      </div>
+  </div>
+
+
+  </body>
+</html>
