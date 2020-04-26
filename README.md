@@ -26,6 +26,7 @@ The team has also developed and deployed a game website to hold the game for dow
 So far the executable game is only supported on Windows OS.
 - [x] Windows OS
 - [ ] Mac OS
+
 The Mac OS version is still on the way.
 
 ## Acknowledgement
