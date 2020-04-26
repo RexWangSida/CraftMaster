@@ -5,7 +5,7 @@ The information of the group members are listed below:
 | Group Member        | Role(s)                              | Contact Info           |
 | ------------------- |--------------------------------------| ---------------------- |
 | **Sida Wang**       | Full-Stack Developer, Game Developer | wangs132@mcmaster.ca   |
-| **Weidong Yang**    | Full-Stack Developer, Game Developer | Someherokris@gmail.com |
+| **Weidong Yang**    | Full-Stack Developer, Game Developer | someherokris@gmail.com |
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
 ## What is CraftMaster?
