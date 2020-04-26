@@ -39,7 +39,7 @@ cd CraftMaster/CraftMasterGame/src
 python main.py
 ```
 - To learn the instruction of how to play the game, follow the [**CraftMaster User Guide**](https://github.com/RexWangSida/CraftMaster/blob/master/CraftMasterGame/Docs/UserGuide/UserGuide.pdf).
-## Open Issues
+## Open Issues 🚑
 
 So far the executable game is only supported on Windows OS.
 - [x] Windows OS
