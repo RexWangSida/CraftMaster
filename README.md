@@ -18,5 +18,8 @@ The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonan
 
 <img src="./CraftMasterGame/src/source/icon.png" width="50%" height="50%">
 
+## Open Issues
+So far only the Window OS version of the game is available to be downloaded on the game website. The Mac OS version of the game is still on the way.
+
 ## Acknowledgement
 We gratefully thank **_Thien Trandinh_** for the guidance throughout the term and **_Michael Fogleman_** for giving us permissions to modify the amazing original project.
