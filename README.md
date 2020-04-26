@@ -1,5 +1,5 @@
 # Welcome to CraftMaster
-Welcome to the repository of our 3XA3 Software Project Management, lead by Professor Asghar Bokhari and supervised by Teaching Assistant Thien Trandinh. 
+Welcome to the repository of our Mcmaster SFWRENG 3XA3 Software Project, lead by Professor Asghar Bokhari and supervised by Teaching Assistant Thien Trandinh. 
 The information of the group members are listed below:
 | Group Member        | Role(s)                              | Contact Info           |
 | ------------------- |:------------------------------------:| ----------------------:|
