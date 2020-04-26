@@ -25,15 +25,15 @@ The team has also developed and deployed a game website to hold the game for dow
 - The instruction of how to install pip can be found at [**HERE**](https://pip.pypa.io/en/stable/installing/)
 - The instruction of how to install git can be found at [**HERE**](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - To install python(it requires pip to be installed), run:
-```console
+```shell
 pip install python
 ```
 - To install pyglet(it requires pip to be installed), run:
-```console
+```shell
 pip install pyglet
 ```
 - To start the program, run:
-```console
+```shell
 git clone https://github.com/RexWangSida/CraftMaster.git
 cd CraftMaster/CraftMasterGame/src
 python main.py
