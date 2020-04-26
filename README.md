@@ -18,6 +18,8 @@ The team has also developed and deployed a game website to hold the game for dow
 
 ## Where to start?
 ### Download the executable game and play
+
+
 ⋅⋅⋅The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
 
 ## Open Issues
