@@ -23,7 +23,10 @@ The team has also developed and deployed a game website to hold the game for dow
 ⋅⋅⋅The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
 
 ## Open Issues
-So far only the Window OS version of the game is available to be downloaded on the game website. The Mac OS version of the game is still on the way.
+So far the executable game is only supported on Windows OS.
+- [x] Windows OS
+- [ ] Mac OS
+
 
 ## Acknowledgement
 We gratefully thank **_Thien Trandinh_** for the guidance throughout the term and **_Michael Fogleman_** for giving us permissions to modify the amazing original project.
