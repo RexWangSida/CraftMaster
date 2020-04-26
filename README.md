@@ -7,6 +7,6 @@ The information of the group members are listed below:
 | **Sida Wang**       | Full-Stack Developer, Game Developer | wangs132@mcmaster.ca   |
 | **Weidong Yang**    | Full-Stack Developer, Game Developer | Someherokris@gmail.com |
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
-
-<img src="./CraftMasterGame/src/source/icon.png">
 </center>
+<img src="./CraftMasterGame/src/source/icon.png">
+
