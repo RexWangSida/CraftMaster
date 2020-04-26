@@ -8,7 +8,7 @@ The information of the group members are listed below:
 | **Weidong Yang**    | Full-Stack Developer, Game Developer | Someherokris@gmail.com |
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
-<img src="./CraftMasterGame/src/source/icon.png" style="width:50%">
+<img src="./CraftMasterGame/src/source/icon.png" width="50%">
 
 The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
 
