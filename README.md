@@ -1,2 +1,2 @@
 # Welcome to CraftMaster
-Welcome to the repository of our 3XA3 Software Project Management, lead by Professor Asghar Bokhari.
+Welcome to the repository of our 3XA3 Software Project Management, lead by Professor Asghar Bokhari and supervised by Teaching Assistant Thien Trandinh.
