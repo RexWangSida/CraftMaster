@@ -20,7 +20,12 @@ The team has also developed and deployed a game website to hold the game for dow
 #### Download the executable game and play
 - The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
 - To learn the instruction of how to download and play the game, follow the [**CraftMaster User Guide**](https://github.com/RexWangSida/CraftMaster/blob/master/CraftMasterGame/Docs/UserGuide/UserGuide.pdf).
-
+#### Run the game in terminal
+- This can be done in Windows PowerShell or Linux/Mac Terminal, and it requires git, python and pyglet, or at least pip.
+- To install pip, running:
+```unix
+sudo easy_install pip
+```
 ## Open Issues
 
 So far the executable game is only supported on Windows OS.
