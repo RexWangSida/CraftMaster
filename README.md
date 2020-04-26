@@ -14,4 +14,4 @@ The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonan
 
 ## What is CraftMaster?
 CraftMaster is a 3D sandbox game developed by three software engineering students at Mcmaster University. It is a reimplementation of [@fogleman/Minecraft](https://github.com/fogleman/Minecraft) which is developed by **_Michael Fogleman_**.
-We believe that the software design principles and software architecture design patterns we applied to the project significant increased the quality of the software. The highlight of CraftMaster is the module decomposition and novel functionalities/features of the game.
+We believe that the software design principles and software architectural design patterns we applied to the project significant increased the quality of the software. The highlights of CraftMaster are the module decomposition and novel functionalities/features of the game.
