@@ -17,10 +17,10 @@ The team has also developed and deployed a game website to hold the game for dow
 <img src="./CraftMasterGame/src/source/icon.png" width="50%" height="50%">
 
 ## Where to start?
-⋅⋅*### Download the executable game and play
+### Download the executable game and play
 
 
-⋅⋅⋅The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
+⋅⋅*The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
 
 ## Open Issues
 So far the executable game is only supported on Windows OS.
