@@ -9,6 +9,7 @@ The information of the group members are listed below:
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
 <img src="./CraftMasterGame/src/source/icon.png">
+
 The Official Game Website can be found at [here](http://rexwangsida.pythonanywhere.com).
 
 ## What is CraftMaster?
