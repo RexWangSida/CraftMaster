@@ -18,7 +18,7 @@ The team has also developed and deployed a game website to hold the game for dow
 
 ## Where to start?
 ### Download the executable game and play
-⋅⋅⋅*The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
+⋅⋅⋅The Official Game Website can be found at [**HERE**](http://rexwangsida.pythonanywhere.com).
 
 ## Open Issues
 So far only the Window OS version of the game is available to be downloaded on the game website. The Mac OS version of the game is still on the way.
