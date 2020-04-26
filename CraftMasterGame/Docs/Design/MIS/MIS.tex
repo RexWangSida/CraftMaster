@@ -1,0 +1,2294 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage[section]{placeins}
+\usepackage{amsfonts}
+\usepackage{paralist}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{verbatim}
+\usepackage[flushleft]{threeparttable}
+\hypersetup{
+        colorlinks,
+        citecolor=black,
+        filecolor=black,
+        linkcolor=black,
+        urlcolor=blue
+}
+
+
+%\input{../Comments}
+
+\begin{document}
+
+
+
+
+
+
+\title{\textbf{SE 3XA3: \\Module Interface Specification\\CraftMaster}}
+
+\author{\textbf{Group Number: }307\\
+		\textbf{Group Name: }3 Craftsmen \\
+		\textbf{Members: }\\
+		Hongqing Cao 400053625\\
+		Sida Wang	 400072157\\
+		Weidong Yang 400065354}
+
+\date{}
+
+\maketitle
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+\listoftables
+\listoffigures
+\newpage
+\FloatBarrier
+\begin{table}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Date} & \textbf{Change}\\
+\midrule
+Mar 7 & General Content added\\
+Mar 8 & Process Queue Module added\\
+Mar 9 & Load Source, Player, Shape, Develop Tools Module added\\
+Mar 10 & Block, Screen, Setting Scene, Main Scene, Game Scene Module added\\
+Mar 11 & Creature, Button, On Off Button, Game Module added\\
+Mar 12 & World Module added\\
+Mar 13 & Introduction added\\
+Mar 13 & Final edit\\
+Apr 13 & Modified based on code change\\
+\bottomrule
+\end{tabularx}
+\caption{\textbf{Revision History}} \label{TblRevisionHistory}
+\end{table}
+\FloatBarrier
+\newpage
+\section*{Introduction}
+This document acts as a blackbox description of CraftMaster modules. The potential readers should be able to figure out the modules' observable behaviors(Interfaces). The internal design is not accessible in this document. The modules specified in this document are labeled as \textbf{M?} and those labels are related to the module labels in the \textbf{Module Guide(MG)} for the seek of consistency.\\
+
+This document support for the four key roles in software development as follows:
+\begin{itemize}
+    \item \textbf{Designer:} A medium for design and review.
+    \item \textbf{Developer:} A clear statement of the required task.
+    \item \textbf{Tester:} A metric for correctness.
+    \item \textbf{User:} Freedom of using modules from having to know internal details of them.
+\end{itemize}
+\newpage
+
+\pagenumbering{arabic}
+
+
+\section {Block Module(M1)}
+
+\subsection{Module}
+Block
+
+\subsection {Uses}
+\href{https://pyglet.readthedocs.io/en/latest/modules/graphics/#pyglet.graphics.TextureGroup}{pyglet.graphics.TextureGroup}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/image/index.html}{pyglet.image} 
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+Block = ?
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Block & str, tuple of float*3, float, str, bool & ~ & ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+Name: str\\
+coordinates: list of float\\
+texture: loaded texture file\\
+destroyable: bool
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+Block() is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent Block(name, top, bottom, side, size, texturePath,destroyable = True):
+\begin{itemize}
+\item transition: name $:=$ name\\
+    coordinates $:=$ TextureGroup(image.load(texturePath).get\_texture())\\
+    destroyable $:=$ destroyable
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\subsection{Local Functions}
+
+\noindent \_\_eq\_\_(another):
+\begin{itemize}
+\item out: $out:=self==another$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_tex\_coords(top, bottom, side, size):
+\begin{itemize}
+\item transition: top $:=$ \_tex\_coord(*top,size)\\
+    bottom $:=$ \_tex\_coord(*bottom, size)\\
+    side $:=$ \_tex\_coord(*side, size)\\
+    result $:=$ [*top, *bottom, *(size$\times$4)]\\
+    Note: *var is a sequence of variables of arbitrary types. e.g. $*(x, y)=x, y$ 
+\item out: $out:=result$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_tex\_coord(x, y, n):
+\begin{itemize}
+\item transition: $m := 1.0 / n$\\
+        $dx := x \times m$\\
+        $dy := y \times m$
+\item out: $out:=dx, dy, dx + m, dy, dx + m, dy + m, dx, dy + m$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Button Module(M2)}
+
+\subsection{Module}
+Button\\
+On Off Button
+
+\subsection {Uses}
+shape.Shape2D\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/gl.html}{pyglet.gl}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/graphics/#pyglet.graphics.TextureGroup}{pyglet.graphics.TextureGroup}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+Buttton = ?\\
+On Off Button = ?
+
+\subsubsection {Exported Access Programs of Button}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Button & float, float, int, int, str, tuple of int, tuple of int & ~ & ~\\
+\hline
+draw & ~ & ~ & ~\\
+\hline
+on\_click & float, float & bool & ~\\
+\hline
+on\_mouse & float, float, tuple of int, tuple of int & ~ & ValueError\\
+\hline
+on\_resize & float, float, int, int & ~ & ~\\
+\hline
+changeFunc & list of tuple & ~ & ~\\
+\hline
+changeText & str & ~ & ~\\
+\hline
+\end{tabular}
+\end{table}
+\subsubsection {Exported Access Programs of On Off Button}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+OnOffButton & float$\times2$, int$\times2$, list of tuple$\times2$, tuple of int$\times3$, bool, str$\times2$ & ~ & ~\\
+\hline
+draw & ~ & ~ & ~\\
+\hline
+on\_click & float, float & bool & ~\\
+\hline
+on\_resize & float, float, int, int & ~ & ~\\
+\hline
+changeState & bool & ~ & ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {Environment Variables}
+Mouse
+
+\subsubsection {State Variables of Button}
+x, y: float, float\\
+width, height: int, int\\
+textColor: (int, int, int, int)\\
+quadColor: (int, int, int)\\
+funcList: [(func, str)]\\
+text: str\\
+label: label\\
+quad: vertex\_list
+
+\subsubsection {State Variables of On Off Button}
+x, y: float, float\\
+width, height: int, int\\
+state: bool\\
+LeftToRightFunc, RightToLeftFunc: [(func, str)], [(func, str)]\\
+leftText, rightText: label, label\\
+quad, slideQuad: vertex\_list, vertex\_list
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+Button() and OnOffButton() is called before any other access routine
+
+\subsubsection {Access Routine Semantics of Button}
+\noindent Button(x, y, width, height, text, textColor, quadColor):
+\begin{itemize}
+\item transition: x, y $:=$ x, y\\
+    width, height $:=$ width, height\\
+    textColor, quadColor $:=$ textColor, quadColor\\
+    funcList $:=$ []\\
+    text $:=$ text\\
+    label $:=$ Label(text, `Arial', 3 $\times$ height//8, x + width//2, y + height//2, `center', `center', textColor)\\
+    quad $:=$ vertex\_list(4, (`v2i', Shape2D.quad\_vertices(x, y, width, height)), (`c3B', quadColor $\times$ 4))
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent draw():
+\begin{itemize}
+\item transition: present the button and label
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_click(x, y):
+\begin{itemize}
+\item transition: \_checkMouse(x,y) $\Rightarrow$ ((func, args $:=$ function, func(*args)) for function in funcList)
+\item output: 
+
+\begin{tabular}{|l|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+\_checkMouse(x,y) & True \\
+\hhline{|-|-|}
+$\neg$ \_checkMouse(x,y) & False \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_mouse(x, y, textColor, quadColor):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+\_checkMouse(x,y) & label.color $:=$ textColor\\
+ &quad.colors $:=$ quadColor*4\\
+\hhline{|-|-|}
+$\neg$ \_checkMouse(x,y) & label.color $:=$ self.textColor\\
+ &quad.colors $:=$ self.quadColor*4\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: 
+
+\begin{tabular}{|l|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$exc :=$}\\
+\hhline{|-|-|}
+len(textColor) $\neq 4 \lor \exists \; i \in \text{textColor} \cdot (i < 0 \lor i > 255)$ & ValueError \\
+\hhline{|-|-|}
+len(quadColor) $\neq 3 \lor \exists \; i \in \text{quadColor} \cdot (i < 0 \lor i > 255)$ & ValueError \\
+\hhline{|-|-|}
+\end{tabular}
+\end{itemize}\vspace{6mm}
+
+\noindent on\_resize(x, y, width, height):
+\begin{itemize}
+\item transition: x, y $:=$ x, y\\
+    width, height $:=$ width, height\\
+    label.x $:=$ x + width//2\\
+    label.y $:=$ y + height//2\\
+    label.font\_size $:=$ 3 * height/8\\
+    quad.vertices $:=$ Shape2D.quad\_vertices(x, y, width, height)
+    
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent changeFunc(funcList):
+\begin{itemize}
+\item transition: funcList $:=$ funcList
+\item exception: None
+\end{itemize}
+
+\noindent changeText(text):
+\begin{itemize}
+\item transition: text $:=$ text\\
+    label.text $:=$ text
+\item exception: None
+\end{itemize}
+
+\subsubsection {Access Routine Semantics of On Off Button}
+\noindent OnOffButton(x, y, width, height, LeftToRightFunc, RightToLeftFunc, textColor = (255,0,0,255), quadColor = (0,0,0), slideQuadColor = (64,64,64), state = False, leftText = ``OFF", rightText = ``ON"):
+\begin{itemize}
+\item transition: x, y $:=$ x, y\\
+    width, height $:=$ width, height\\
+    state $:=$ state\\
+    LeftToRightFunc, RightToLeftFunc $:=$ LeftToRightFunc, RightToLeftFunc\\
+    leftText $:=$ Label(leftText, `Arial', 3 $\times$ height//7, x + 10 + width//2 $-$ 10, y, `right', `center', textColor)\\
+    rightText $:=$ Label(rightText, `Arial', 3 $\times$ height//7, x $-$ width//2 $-$ 10, y, `left', `center', textColor)\\
+    quad $:=$ vertex\_list(4, (`v2i', Shape2D.quad\_vertices(x $-$ width//2, y $-$ height//2, width, height)), (`c3B', quadColor $\times$ 4))\\
+    slideQuad $:=$ vertex\_list(4, (`v2i', Shape2D.quad\_vertices(x $- 3 \times$ width//8, y $- 5 \times$ height//2, width//4, $5 \times$ height//4)), (`c3B', slideQuadColor $\times$ 4))
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent draw():
+\begin{itemize}
+\item transition: present the button and label
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_resize(x, y, width, height):
+\begin{itemize}
+\item transition: x, y $:=$ x, y\\
+    width, height $:=$ width, height\\
+    label.x $:=$ x + width//2\\
+    label.y $:=$ y + height//2\\
+    label.font\_size $:=$ 3 * height/8\\
+    quad.vertices $:=$ Shape2D.quad\_vertices(x, y, width, height)
+    
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_click(x, y):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+\_checkMouseOn(x,y) $\land$ state & funcList $:=$ RightToLeftFunc \\
+\hhline{|-|-|}
+\_checkMouseOn(x,y) $\land$ $\neg$ state & funcList $:=$ LeftToRightFunc \\
+\hhline{|-|-|}
+\end{tabular}
+
+(func, args $:=$ function, func(*args)) for function in funcList
+\item output: 
+
+\begin{tabular}{|l|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+\_checkMouseOn(x,y) & True \\
+\hhline{|-|-|}
+$\neg$ \_checkMouseOn(x,y) & False \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent changeState(state):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+state & slideQuad.vertices $:=$ Shape2D.quad\_vertices(x + width//8, \dots) \\
+\hhline{|-|-|}
+$\neg$ state & slideQuad.vertices $:=$ Shape2D.quad\_vertices(x $- \; 3 \;\times$ width//8, \dots) \\
+\hhline{|-|-|}
+\end{tabular}
+
+\textit{Note: same parameters for both case are omitted to fit in table}\\
+state $:=$ state
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\subsection{Local Functions}
+\subsubsection{Local Functions of Button}
+\noindent \_checkMouse(x, y):
+\begin{itemize}
+\item output: $out := x > x \land x < x + \text{width} \land y > y \land y < y + \text{height}$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\subsubsection{Local Functions of On Off Button}
+
+\noindent \_checkMouseOn(x, y):
+\begin{itemize}
+\item output: $out := x - \text{width}//2 < x \land x < x + \text{width}//2 \land y - \text{width}//2 < y \land y < y + \text{height}//2$
+\item exception: None
+\end{itemize}\vspace{6mm}
+\newpage
+
+
+\section {Creature Module(M3)}
+
+\subsection{Module}
+Creature
+
+\subsection {Uses}
+\href{https://docs.python.org/3/library/math.html}{math}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+Creature = ?
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Creature & tuple of float, int, float, float, bool, float, float, float & ~ & ~\\
+\hline
+rotate & int, int & ~& ~\\
+\hline
+move & str & ~& ValueError\\
+\hline
+stopMove & str & ~ & ValueError\\
+\hline
+jump & float & ~ & ~\\
+\hline
+update & float, world & ~ & ~\\
+\hline
+get\_motion\_vector & ~ & tuple of float & ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+position: tuple of float \\
+rotation: tuple of float\\
+strafe: list of int \\
+dy: float \\
+walkSpeed: float\\
+JumpHeight: float\\
+flying: bool\\
+flySpeed: float\\
+height: float\\
+health: int
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+Creature() is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent Creature(position, health,dy = 0, walkSpeed = 5, flying = False, flySpeed = 10, height = 1, jumpHeight = 1.0):
+\begin{itemize}
+\item transition: position $:=$ position\\
+    rotation $:= (0, 0)$\\
+    strafe $:= [0, 0]$\\
+    dy $:=$ dy\\
+    walkSpeed $:=$ walkSpeed\\
+    JumpHeight $:=$ jumpHeight\\
+    terminalVelocity $:= 50$\\
+    flying $:=$ flying\\
+    flySpeed $:=$ flySpeed\\
+    height $:=$ height\\
+    health $:=$ health
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent rotate(x, y):
+\begin{itemize}
+\item transition: $y := max(-90, min(90, y))$\\
+        rotation $:= (x, y)$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent move(direction):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+direction $=$ ``FORWARD" & strafe[0] $:=$ strafe[0] $- 1$\\
+\hhline{|-|-|}
+direction $=$ ``BACKWARD" & strafe[0] $:=$ strafe[0] $+ 1$\\
+\hhline{|-|-|}
+direction $=$ ``LEFT" & strafe[1] $:=$ strafe[1] $- 1$\\
+\hhline{|-|-|}
+direction $=$ ``RIGHT" & strafe[1] $:=$ strafe[1] $+ 1$\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: $exc := ((\text{direction} \neq \text{``FORWARD"} \land \text{direction} \neq \text{``BACKWARD"} \land \text{direction} \neq \text{``LEFT"} \land \text{direction} \neq \text{``RIGHT"}) \Rightarrow \text{ValueError})$
+\end{itemize}\vspace{6mm}
+
+\noindent stopMove(x, y, dx, dy):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+direction $=$ ``FORWARD" & strafe[0] $:=$ strafe[0] $+ 1$\\
+\hhline{|-|-|}
+direction $=$ ``BACKWARD" & strafe[0] $:=$ strafe[0] $- 1$\\
+\hhline{|-|-|}
+direction $=$ ``LEFT" & strafe[1] $:=$ strafe[1] $+ 1$\\
+\hhline{|-|-|}
+direction $=$ ``RIGHT" & strafe[1] $:=$ strafe[1] $- 1$\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: $exc := ((\text{direction} \neq \text{``FORWARD"} \land \text{direction} \neq \text{``BACKWARD"} \land \text{direction} \neq \text{``LEFT"} \land \text{direction} \neq \text{``RIGHT"}) \Rightarrow \text{ValueError})$
+\end{itemize}\vspace{6mm}
+
+\noindent jump(gravity):
+\begin{itemize}
+\item transition: dy $:= \sqrt{2 \times \text{gravity} \times \text{JumpHeight}}$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent update(dt, world):
+\begin{itemize}
+\item transition: speed $:=$ walkSpeed\\
+    d $:=$ dt $\times$ speed\\
+    dx, dy, dz $:=$ .get\_motion\_vector()\\
+    dx, dy, dz $:=$ dx$\times$d, dy$\times$d, dz$\times$d\\
+    \textit{Note: transitions above are for walking}\\
+    
+    \begin{tabular}{|l|l|}
+    \hhline{|-|-|}
+    flying & dy $:=$ dy $-$ dt $\times$ gravity\\
+     & dy $:=$ max(dy, $-$ terminalVelocity)\\
+     & dy $:=$ dy + dy $\times$ dt\\
+    \hhline{|-|-|}
+    \end{tabular}\\
+    \textit{Note: transitions above are for flyting}\\
+    
+    x, y, z $:=$ position\\
+    x, y, z $:=$ world.collide((x + dx, y + dy, z + dz), self)\\
+    position $:=$ (x, y, z)\\
+    \textit{Note: transitions above are for collision}
+    
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent get\_motion\_vector():
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|l|}
+\hhline{|-|-|-|-|}
+$\exists$ strafe &&& x, y $:=$ rotation\\
+ &&& strafe $:= \arctan(\text{*strafe})$\\
+ &&& y\_angle $:=$ y\\
+ &&& x\_angle $:=$ (x + strafe)\\
+\hhline{|~|-|-|-|}
+ & flying && m $:= \cos$(y\_angle)\\
+ & && dy $:= \sin$(y\_angle)\\
+\hhline{|~|~|-|-|}
+ & & strafe[1] $=$ 0 & dy $:=$ 0.0\\
+ & & & m = 1\\
+\hhline{|~|~|-|-|}
+ & & strafe[1] $>$ 0 & dy $:=$ dy $\times -1$\\
+ & & & dx $:= \cos$(x\_angle) $\times$ m\\
+ & & & dz $:= \sin$(x\_angle) $\times$ m\\
+\hhline{|~|-|-|-|}
+ & $\neg$ flying && dy $:=$ 0.0\\
+ & && dx $:= \cos$(x\_angle)\\
+ & && dz $:= \sin$(x\_angle)\\
+\hhline{|-|-|-|-|}
+ $\neg \; \exists$ strafe &&& dy $:=$ 0.0\\
+ &&& dx $:=$ 0.0\\
+ &&& dz $:=$ 0.0\\
+\hhline{|-|-|-|-|}
+\end{tabular}
+
+\item output: $out := (dx, dy, dz)$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Develop Tools Module(M4)}
+
+\subsection{Module}
+None
+
+\subsection {Uses}
+\href{https://pillow.readthedocs.io/en/stable/reference/Image.html}{PIL.Image}\\
+\href{https://docs.python.org/3/library/os.html}{os} \\
+\href{https://docs.python.org/3/library/math.html}{math}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+None
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+MergePicture & float, float, list of str, str, str & Null & ValueError\\
+\hline
+\end{tabular}
+\begin{tablenotes}
+\small
+  \item Note: ``Null" value is represented as ``None" in Python. In case of confusion with ``None" used in other part of this document, we decided to use ``Null" to represent this value.  
+\end{tablenotes}
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+None
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+None
+
+\subsubsection {Access Routine Semantics}
+\noindent MergePicture(width,height,pictures,folder, savePath):
+\begin{itemize}
+\item transition: $\text{single image} := \text{a join of multiple images}$ 
+
+\item out: 
+
+\begin{tabular}{|p{3cm}|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+$len(pictures) = 0$ & Null \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: $exc := (type(savePath) \neq str \lor savePath = ``" \Rightarrow \text{ValueError})$
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Game Module(M5)}
+
+\subsection{Module}
+Game
+
+\subsection {Uses}
+\href{https://docs.python.org/3/library/__future__.html?highlight=division}{\_\_future\_\_.division}\\
+\href{https://docs.python.org/3/library/json.html}{json}\\
+\href{https://docs.python.org/3/library/os.html}{os} \\
+\href{https://docs.python.org/3/library/collections.html?highlight=deque#collections.deque}{collections.deque} \\
+\href{https://pyglet.readthedocs.io/en/latest/modules/image/index.html}{pyglet.image} 
+\href{https://pyglet.readthedocs.io/en/latest/modules/gl.html}{pyglet.gl}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/graphics/#pyglet.graphics.TextureGroup}{pyglet.graphics.TextureGroup}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/window.html}{pyglet.window}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/window_key.html}{pyglet.window.key}\\
+player.Player\\
+world.World\\
+gameScene.GameScene\\
+mainScene.MainScene\\
+settingScene.SettingScene\\
+loadSource.ALLBLOCKS\\
+loadSource.PLACEBLOCKS
+
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+Game = ?
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Game & int,*args, **kwargs & ~ & ~\\
+\hline
+loadGame & str & ~ & ValueError\\
+\hline
+saveGame & str & ~ & ~\\
+\hline
+goBack & ~ & Null & ~\\
+\hline
+StartNewGame & ~ & ~ & ~\\
+\hline
+changeScene & Screen & Null & ValueError\\
+\hline
+update & float & ~ & ~\\
+\hline
+on\_mouse\_press & float, float, button, int & ~ & ~\\
+\hline
+on\_mouse\_motion & float, float, float, float & ~ & ~\\
+\hline
+on\_key\_press & symbol, int & ~ & ~\\
+\hline
+on\_key\_release & symbol, int & ~ & ~\\
+\hline
+on\_resize & int, int & ~ & ~\\
+\hline
+on\_draw & ~ & ~ & ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+Mouse\\
+Keyboard\\
+Monitor\\
+Saving files
+
+\subsubsection {State Variables}
+player: Creature\\
+width, height: int, int\\
+world: World\\
+refreshRate: int\\
+setScene: Screen\\
+gameScene: Screen\\
+mainScene: Screen\\
+lastScene: Screen\\
+currentScene: Screen
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+Game() is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent Game(refreshRate = 60,*args, **kwargs):
+\begin{itemize}
+\item transition: player $:=$ Player((0,0,0))\\
+    world $:=$ World(ALLBLOCKS)\\
+    refreshRate $:=$ refreshRate\\
+    setScene $:=$ SettingScene()\\
+    gameScene $:=$ GameScene(PLACEBLOCKS)\\
+    mainScene $:=$ MainScene()\\
+    lastScene, currentScene $:=$ Null
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent loadGame(file):
+\begin{itemize}
+\item transition: f $:=$ open(file, `r')\\
+    data $:=$ json.load(f)\\
+    player.position $:=$ data[``position"]\\
+    world $:=$ \{block in data[``world"]: (pos in data[``world"][block])\}\\
+    world.changeWorld(world)
+\item exception: $exc := \neg \; \text{os.path.exists(file)} \Rightarrow \text{ValueError}$
+\end{itemize}\vspace{6mm}
+
+\noindent saveGame(file):
+\begin{itemize}
+\item transition: player.position $:=$ data[``position"]\\
+    data $:=$ \{block in ALLBLOCKS: (pos in world[``world"][block]), ``position": player.position, ``world": world\}\\
+    world.changeWorld(world)
+    f $:=$ open(file, `w')\\
+    json.dump(data, f)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent goBack():
+\begin{itemize}
+\item transition: currentScene $:=$ lastScene\\
+    set\_exclusive\_mouse(currentScene.mouseExclusive)
+\item output: $out:= Null if lastScene == Null$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent StartNewGame():
+\begin{itemize}
+\item transition: position $:=$ (0,0,0)\\
+    world.clearWorld()\\
+    world.setupWorld()\\
+    changeScene(``game")
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent changeScene(scene):
+\begin{itemize}
+\item transition: lastScene $:=$ currentScene
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+scene $=$ ``main" & currentScene $:=$ mainScene \\
+\hhline{|-|-|}
+scene $=$ ``game" & currentScene $:=$ gameScene \\
+\hhline{|-|-|}
+scene $=$ ``set" & currentScene $:=$ setScene \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item output: $out := (\text{scene = currentScene}) \Rightarrow \text{Null}$
+\item exception: $exc := (\text{scene} \neq \text{``main"} \land \text{scene} \neq \text{``game"} \land \text{scene} \neq \text{``set"}) \Rightarrow \text{ValueError}$
+\end{itemize}\vspace{6mm}
+
+\noindent update(dt):
+\begin{itemize}
+\item transition: currentScene.update(dt)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_mouse\_press(x, y, button, modifiers):
+\begin{itemize}
+\item transition: currentScene.mouseClick(x, y, button, modifiers)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_mouse\_motion(x, y, dx, dy):
+\begin{itemize}
+\item transition: currentScene.mouseMove(x, y, dx, dy)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_key\_press(symbol, modifiers):
+\begin{itemize}
+\item transition: currentScene.keyPressed(symbol, modifiers)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_key\_release(symbol, modifiers):
+\begin{itemize}
+\item transition: currentScene.keyRelease(symbol, modifiers)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_resize(width, height):
+\begin{itemize}
+\item transition: mainScene.screenResize(width,height)\\
+    gameScene.screenResize(width,height)
+    setScene.screenResize(width,height)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent on\_draw():
+\begin{itemize}
+\item transition: clear()\\
+    currentScene.draw()
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Load Source Module(M6)}
+
+\subsection{Module}
+
+loadSource
+
+\subsection {Uses}
+
+\href{https://docs.python.org/3/library/os.html}{os} \\
+\href{https://docs.python.org/3/library/math.html}{math}\\
+block.Block\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/gl.html}{pyglet.gl}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+ICON = media.load(``source\textbackslash icon.png")\\
+BUILDSOUND = media.load(``source\textbackslash build.wav", streaming=False)\\
+DESTROYSOUND = media.load(``source\textbackslash destroy.wav", streaming=False)\\
+BACKGROUNDMUSIC = media.load(``source\textbackslash bgmusic.wav")\\\\
+ALLBLOCKS = [BRICK, GRASS, STONE, MARBLE]\\
+PLACEBLOCKS = [BRICK, GRASS, STONE]
+
+\subsubsection {Exported Types}
+BRICK = Block(``BRICK",(0, 0), (0, 0), (0, 0), 1,``texture\textbackslash Brick.png", True)\\
+GRASS = Block(``GRASS",(0, 0), (0, 1), (1, 1), 2, ``texture\textbackslash Grass.png", True)\\
+STONE = Block(``STONE",(0, 0), (0, 0), (0, 0), 1,``texture\textbackslash Stone.png", True)\\
+MARBLE = Block(``MARBLE",(0, 0), (0, 0), (0, 0), 1,``texture\textbackslash Marble.png", False)
+
+\subsubsection {Exported Access Programs}
+None
+
+\subsection {Semantics}
+
+\subsubsection {Environment Variables}
+Source files\\
+Texture files
+
+\newpage
+
+
+\section {Main Module(M7)}
+
+\subsection{Module}
+
+
+\subsection {Uses}
+\href{https://pyglet.readthedocs.io/en/latest/modules/gl.html}{pyglet.gl}\\
+game.Game\\
+loadSource
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+WINDOW\_WIDTH = 800\\
+WINDOW\_HEIGHT = 600
+
+\subsubsection {Exported Types}
+None
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+main & ~ & ~ & ~\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+None
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+None
+
+\subsubsection {Access Routine Semantics}
+\noindent Main():
+\begin{itemize}
+\item transition: game $:=$ Game(WINDOW\_WIDTH, WINDOW\_HEIGHT, `CraftMan', True, 100)\\
+    game.set\_icon(ICON)\\
+    BACKGROUNDMUSIC.play()\\
+    pyglet.app.run()
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Game Scene Module(M8)}
+
+\subsection{Module}
+GameScene
+
+\subsection {Uses}
+\href{https://docs.python.org/3/library/sys.html}{sys}\\
+\href{https://docs.python.org/3/library/time.html}{time}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/window.html}{pyglet.window}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/window_key.html}{pyglet.window.key}\\
+screen.Screen\\
+loadSource\\
+shape.Shape3D
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+GameScene = Screen
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+GameScene & game, list of block & ~ & ~\\
+\hline
+draw & ~ & ~& ~\\
+\hline
+mouseClick & int, int, button, int & ~& ~\\
+\hline
+mouseMove & int, int, tuple of int, tuple of int & ~& ~\\
+\hline
+keyPressed & symbol, int & ~& ~\\
+\hline
+keyRelease & symbol, int & ~& ~\\
+\hline
+screenResize & int, int & ~& ~\\
+\hline
+update & float & ~& ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {Environment Variables}
+Mouse\\
+Keyboard\\
+Monitor
+
+\subsubsection {State Variables}
+label: label \\
+reticle: ?\\
+inventory: list of str \\
+block: str \\
+num\_keys: list of symbol
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+GameScene(game) is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent MainScene(game, placeBlocks):
+\begin{itemize}
+\item transition: mouseExclusive $:=$ True\\
+    label $:=$ Label(`', font\_name=`Arial', font\_size=18,
+            x=10, y=height - 10, anchor\_x=`left', anchor\_y=`top',
+            color=(255,255,255, 255))\\
+    reticle $:=$ Null\\
+    inventory $:=$ [block.name for block in placeBlocks]\\
+    num\_keys $:=$ [key.\_1, key.\_2, key.\_3, key.\_4, key.\_5,
+            key.\_6, key.\_7, key.\_8, key.\_9, key.\_0]
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseClick(x, y, button, modifiers):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+mouseExclusive & vector $:=$ get\_sight\_vector()\\
+\hhline{|~|-|}
+ & curPos, prePos $:=$ hit\_test(position, vector)\\
+\hhline{|-|-|}
+$\neg$mouseExclusive & mouseExclusive $:=$ True\\
+\hhline{|-|-|}
+\end{tabular}
+\\\\\\
+\begin{tabular}{|l|l|}
+\hhline{|-|}
+ mouseExclusive\\
+\hhline{|-|-|}
+ button $=$ mouse.RIGHT $\land$ prePos & add\_block(prePos, block)\\
+ & BUILDSOUND.play()\\
+\hhline{|-|-|}
+ button $=$ mouse.LEFT $\land$ curPos & block $:=$ world[curPos]\\
+\hhline{|-|-|}
+\end{tabular}
+\\\\\\
+\begin{tabular}{|l|l|}
+\hhline{|-|}
+mouseExclusive$\land$button$=$mouse.LEFT$\land$curPos \\
+\hhline{|-|-|}
+ block $\in$ inventory & remove\_block(curPos)\\
+ &DESTROYSOUND.play()\\
+\hhline{|-|-|}
+\end{tabular}
+\\\\
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseMove(x, y, dx, dy):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+mouseExclusive & m $:=$ 0.15 \\
+& x, y $:=$ rotation, \\
+& x, y $:=$ x + dx $\times$ m, y + dy $\times$ m\\
+&rotate(x,y)\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent keyPressed(symbol, modifiers):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+symbol $=$ key.W & player.move(``FORWARD") \\
+\hhline{|-|-|}
+symbol $=$ key.S & player.move(``BACKWARD") \\
+\hhline{|-|-|}
+symbol $=$ key.A & player.move``LEFT") \\
+\hhline{|-|-|}
+symbol $=$ key.D & player.move(``RIGHT") \\
+\hhline{|-|-|}
+symbol $=$ key.SPACE$\land$player.dy $=$ 0 & player.jump(gravity) \\
+\hhline{|-|-|}
+symbol $=$ key.ESCAPE & changeScene(`set') \\
+\hhline{|-|-|}
+symbol $=$ key.TAB & player.switchFlyState() \\
+\hhline{|-|-|}
+symbol $\in$ num\_keys & index$:=$(symbol - num\_keys[0]) $\%$ len(inventory)\\
+ &block $:=$ inventory[index] \\
+\hhline{|-|-|}
+\end{tabular}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent screenResize(width, height):
+\begin{itemize}
+\item transition: label.y $:=$ height - 10\\
+    x, y $:=$ resize(width//2, width//2)\\
+    n $:=$ 10\\
+    reticle.delete(), if there is a reticle\\
+    reticle $:=$ vertex\_list(4, (`v2i', (x - n, y, x + n, y, x, y - n, x, y + n)))
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent update(dt):
+\begin{itemize}
+\item transition: updateWorld(1.0/refreshRate, player)\\
+    m $:=$ 8\\
+    dt $:=$ min(dt, 0.2)\\
+    reticle.delete(), if there is a reticle\\
+    m $\times$ player.update(dt/m,self.game.world)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent draw():
+\begin{itemize}
+\item transition: present background, fog, label, focused block, and reticle
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\subsection{Local Functions}
+
+\noindent \_draw\_label():
+\begin{itemize}
+\item transition: x, y, z $:=$ player.position\\
+label.text = `get\_fps(), x, y, z, len(world.\_shown), len(world)'
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_draw\_reticle():
+\begin{itemize}
+\item transition: glColor3d(0, 0, 0) \textit{Note:black}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_drawFocusedBlock():
+\begin{itemize}
+\item transition: vector $:=$ player.get\_sight\_vector()\\
+block $:=$ world.hit\_test(player.position, vector)[0]\\
+x, y, z $:=$ block\\
+vertex\_data = Shape3D.cube\_vertices(x, y, z, 0.51)\\
+graphics.draw(24, GL\_QUADS, ('v3f/static', vertex\_data))\\
+\textit{Note: Transitions above draw black edge lines around the block that player currently focus.}
+\item exception: None
+\end{itemize}\vspace{6mm}
+\newpage
+
+
+\section {Main Scene Module(M9)}
+
+\subsection{Module}
+MainScene
+
+\subsection {Uses}
+screen.Screen\\
+button.Button
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+MainScene = Screen
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+MainScene & game & ~ & ~\\
+\hline
+draw & ~ & ~& ~\\
+\hline
+mouseClick & int, int, button, int & ~& ~\\
+\hline
+mouseMove & int, int, tuple of int, tuple of int & ~& ~\\
+\hline
+screenResize & int, int & ~& ~\\
+\hline
+changeStage & str & ~& ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {Environment Variables}
+Mouse\\
+Monitor
+
+\subsubsection {State Variables}
+game: game\\
+stage: \{str: list of tuple\}
+button1: Button\\
+button2: Button\\
+button3: Button\\
+buttons: list of Button
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+MainScene(game) is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent MainScene(game):
+\begin{itemize}
+\item transition: mouseExclusive $:=$ False\\
+    $x,y := $game.width, game.height\\
+    stage $:=$ \{\\
+    \hspace*{3mm}"stage1":[\\
+    \hspace*{3mm}\hspace*{3mm}(``start Game", [(changeStage, (``stage2", ))]),\\
+    \hspace*{3mm}\hspace*{3mm}(``Setting", [(changeScene, (``set", ))]),\\
+    \hspace*{3mm}\hspace*{3mm}(``Quit", [(close, ())]),\\
+    \hspace*{3mm}],\\
+    \hspace*{3mm} "stage2":[\\
+    \hspace*{3mm}\hspace*{3mm}(``Start New Game", [(self.game.StartNewGame, ())]),\\
+    \hspace*{3mm}\hspace*{3mm}(``Load Game", [(changeStage, (``stage3", ))]),\\
+    \hspace*{3mm}\hspace*{3mm}(``Return", [(changeStage, (``stage1", ))]),\\
+    \hspace*{3mm}],\\
+    \hspace*{3mm}"stage3":[\\
+    \hspace*{3mm}\hspace*{3mm}(``Game one",[(loadGame,(``game1.json",)), (changeScene,(``game",))]),\\
+    \hspace*{3mm}\hspace*{3mm}(``Game two",[(loadGame,(``game2.json",)), (changeScene,(``game",))]),\\
+    \hspace*{3mm}\hspace*{3mm}(``Return", [(changeStage, (``stage2", ))]),\\
+    \hspace*{3mm}],\\
+    \}\\
+    button1 $:=$ Button(x//4, y//2, x//2, y//8, ``",(255,255,255,255),(0,0,0))\\
+    button2 $:=$ Button(x//4, (11*y)//32, x//2, y//8, ``",(255,255,255,255),(0,0,0))\\
+    button3 $:=$ Button(x//4, (3*y)//16, x//2, y//8, ``",(255,255,255,255),(0,0,0))\\
+    buttons $:=$ [button1, button2, button3]
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseClick(x, y, button, modifiers):
+\begin{itemize}
+\item transition: detect mouse click on each button
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseMove(x, y, dx, dy):
+\begin{itemize}
+\item transition: detect mouse move in window
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent screenResize(width, height):
+\begin{itemize}
+\item transition: x,y $:=$ width, height\\
+    button1 $:=$ resize(x//4, y//2, x//2, y//8)\\
+    button2 $:=$ resize(x//4, (11*y)//32, x//2, y//8)\\
+    button3 $:=$ resize(x//4, (3*y)//16, x//2, y//8)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent draw():
+\begin{itemize}
+\item transition: present background and buttons
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent changeStage(stage):
+\begin{itemize}
+\item transition: change presented for each stage
+\item exception: None
+\end{itemize}\vspace{6mm}
+\newpage
+
+
+\section {Setting Scene Module(10)}
+
+\subsection{Module}
+SettingScene
+
+\subsection {Uses}
+screen.Screen\\
+button.OnOffButton\\
+button.Button
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+SettingScene = Screen
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+SettingScene & game & ~ & ~\\
+\hline
+screenResize & int, int & ~& ~\\
+\hline
+draw & ~ & ~& ~\\
+\hline
+mouseMove & int, int, tuple of int, tuple of int & ~& ~\\
+\hline
+mouseClick & int, int, button, int & ~& ~\\
+\hline
+
+
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {Environment Variables}
+Mouse\\
+Monitor
+
+\subsubsection {State Variables}
+mode: OnOffButton\\
+returnBut: Button\\
+saveOneBut: Button\\
+saveTwoBut: Button
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+SettingScene(game) is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent SettingScene(game):
+\begin{itemize}
+\item transition: mouseExclusive $:=$ False\\
+    $x,y := $game.width, game.height\\
+    mode $:= $OnOffButton(``night", ``day")\\
+    returnBut $:=$ Button(``return")\\
+    saveOneBut $:=$ Button(``Save on game 1 and Return")\\
+    saveTwoBut $:=$ Button(``Save on game 2 and Return")
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent screenResize(width, height):
+\begin{itemize}
+\item transition: mode $:=$ resize(width//2, height//2, width//8, height//8)\\
+    returnBut $:=$ resize(20, height-20-width//24, width//8, width//20)\\
+    saveOneBut $:=$ resize(5*width//48, height//10, width//3, width//24)\\
+    saveTwoBut $:=$ resize(9*width//16, height//10, width//3, width//24)\\
+\textit{Note: ``//" here and below is integer division, that $5//2 = 2$}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent draw():
+\begin{itemize}
+\item transition: show background and all buttons
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseMove(x, y, dx, dy):
+\begin{itemize}
+\item transition: detect mouse move in window
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseClick(x, y, button, modifiers):
+\begin{itemize}
+\item transition: detect mouse click on each button
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Player Module(M11)}
+
+\subsection{Module}
+
+player
+
+\subsection {Uses}
+
+\href{https://docs.python.org/3/library/math.html}{math}\\
+creature.Creature
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+Player = Creature
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Player & position & ~ & ~\\
+\hline
+get\_sight\_vector & ~ & tuple of float & ~\\
+\hline
+switchFlyState&~&~&~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+None
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+
+Player() is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent Player(position):
+\begin{itemize}
+\item transition: $Player := (position, 2, 100)$\\
+    $energy := 100$
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\noindent get\_sight\_vector():
+\begin{itemize}
+\item transition: $x, y := \text{rotation}$\\
+    $m := \cos(y)$
+    $dy := \sin(y)$\\
+    $dx := \cos(x - 90) \times m$\\
+    $dz := \sin(x - 90) \times m$
+\item output: $out:=dx,dy,dz$
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\noindent switchFlyState():
+\begin{itemize}
+\item transition: $\text{flying} := \neg \text{flying}$
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+
+\section {Process Queue Module(M12)}
+
+\subsection{Module}
+
+processQueue
+
+\subsection {Uses}
+
+\href{https://docs.python.org/3/library/collections.html?highlight=deque#collections.deque}{collections.deque} \\
+\href{https://docs.python.org/3/library/time.html}{time}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+
+ProcessQueue = ?\\
+\textit{Note: All question marks used here and below mean the type is defined by this module and not eligible to be represented by Python's built-in types.}
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+ProcessQueue & ~  & ~ & ~\\
+\hline
+enqueue & function, *args  & ~ & ~\\
+\hline
+dequeue & ~ & ~ & IndexError\\
+\hline
+process\_queue & float & ~ & ~\\
+\hline
+process\_entire\_queue & ~ & ~ & ~\\
+
+\hline
+\end{tabular}
+\begin{tablenotes}
+  \small
+  \item Note: *args is a sequence of variables of arbitrary types. e.g. $*(x, y)=x, y$
+\end{tablenotes}
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+
+$queue$: sequence of T
+\subsubsection {State Invariant}
+
+None
+
+\subsubsection {Assumptions}
+
+ProcessQueue() is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent ProcessQueue():
+\begin{itemize}
+\item transition: $queue := deque()$
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\noindent enqueue(func, *args):
+\begin{itemize}
+\item transition: $queue := queue.append((func, args))$ 
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\noindent dequeue():
+\begin{itemize}
+\item transition: left value removed from queue\\
+    $func, args := queue.popleft()$\\
+    $func(*args)$
+\item exception: $exc := \neg self.queue \Rightarrow \text{IndexError})$
+\end{itemize}\vspace{6mm}
+
+\noindent process\_queue(maxPeriod):
+\begin{itemize}
+\item transition: $start := time.clock()$ \\
+    dequeue, while queue $\neg empty \land time.clock() - start < maxPeriod$
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\noindent process\_entire\_queue():
+\begin{itemize}
+\item transition: dequeue, while queue $\neg empty$
+\item exception: none
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Screen Module(M13)}
+
+\subsection{Module}
+Screen
+
+\subsection {Uses}
+\href{https://docs.python.org/3/library/math.html}{math}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/graphics/#pyglet.graphics.TextureGroup}{pyglet.graphics.TextureGroup}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/gl.html}{pyglet.gl}
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+Screen = ?
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+Screen & game, bool & ~ & ~\\
+\hline
+draw & ~ & ~& ~\\
+\hline
+mouseClick & int, int, int & ~& ~\\
+\hline
+update & float & ~& ~\\
+\hline
+mouseMove & int, int, tuple of int, tuple of int & ~& ~\\
+\hline
+keyPressed & symbol, int & ~& ~\\
+\hline
+keyRelease & symbol, int & ~& ~\\
+\hline
+screenResize & int, int & ~& ~\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {Environment Variables}
+Mouse\\
+Keyboard\\
+Monitor
+
+\subsubsection {State Variables}
+game: game\\
+mouseExclusive: bool
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+Screen(game, exclusive) is called before any other access routine
+
+\subsubsection {Access Routine Semantics}
+\noindent Screen(game, exclusive):
+\begin{itemize}
+\item transition: game $:=$ game\\
+    mouseExclusive $:=$ exclusive
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseClick(x, y, button, modifiers):
+\begin{itemize}
+\item transition: pass\\
+\textit{Note: Pass used here and below means the extended modules need to have this routine but with different implementations}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent update(dt):
+\begin{itemize}
+\item transition: pass
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent mouseMove(x, y, dx, dy):
+\begin{itemize}
+\item transition: pass
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent keyPressed(symbol, modifiers):
+\begin{itemize}
+\item transition: pass
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent keyRelease(symbol, modifiers):
+\begin{itemize}
+\item transition: pass
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent screenResize(width, height):
+\begin{itemize}
+\item transition: pass
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent draw():
+\begin{itemize}
+\item transition: pass
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\subsection{Local Functions}
+
+
+\noindent \_setBGColor(R, G, B, A):
+\begin{itemize}
+\item transition: set background color as $glClearColor(R, G, B, A)$
+\item exception: $ext := (R<0 \lor R>1 \lor G<0 \lor G>1 \lor B<0 \lor B>1 \lor A<0 \lor A>1) \Rightarrow \text{ValueError}$
+\end{itemize}\vspace{6mm}
+
+\noindent \_setup\_fog(R, G, B, A,start,end):
+\begin{itemize}
+\item transition: set up fog with color defined by glFogfv(R, G, B, A) and range defined by glFogf(GL\_FOG\_START, start), glFogf(GL\_FOG\_END, end)
+\item exception: $ext := (R<0 \lor R>1 \lor G<0 \lor G>1 \lor B<0 \lor B>1 \lor A<0 \lor A>1) \Rightarrow \text{ValueError}$
+\end{itemize}\vspace{6mm}
+
+\noindent \_setup\_glbasic():
+\begin{itemize}
+\item transition: basic OpenGL configuration
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_setup\_2d():
+\begin{itemize}
+\item transition: set up a 2D screen
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_setup\_3d():
+\begin{itemize}
+\item transition: set up an 3D screen with rotation on z-axis by glRotatef(x, 0, 1, 0), glRotatef($-$y, $\cos(x)$, 0, $\sin(x)$)
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {Shape Module(M14)}
+
+\subsection{Module}
+
+Shape3D\\
+Shape2D
+
+\subsection {Uses}
+None
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+None
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+cube\_vertices & float, float, float, float & list of float & ValueError\\
+\hline
+\end{tabular}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+quad\_vertices & float, float, float, float & list of float & ValueError\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+None
+
+\subsubsection {State Invariant}
+None
+\subsubsection {Assumptions}
+None
+
+\subsubsection {Access Routine Semantics}
+\noindent cube\_vertices(x, y, z, n):
+\begin{itemize}
+\item output: $out:=
+    [x-n,y+n,z-n, x-n,y+n,z+n, x+n,y+n,z+n, x+n,y+n,z-n,\\
+    x-n,y-n,z-n, x+n,y-n,z-n, x+n,y-n,z+n, x-n,y-n,z+n,\\
+    x-n,y-n,z-n, x-n,y-n,z+n, x-n,y+n,z+n, x-n,y+n,z-n,\\
+    x+n,y-n,z+n, x+n,y-n,z-n, x+n,y+n,z-n, x+n,y+n,z+n,\\
+    x-n,y-n,z+n, x+n,y-n,z+n, x+n,y+n,z+n, x-n,y+n,z+n,\\
+    x+n,y-n,z-n, x-n,y-n,z-n, x-n,y+n,z-n, x+n,y+n,z-n,]$
+\item exception: $exc:=\{n<0\Rightarrow ValueError\}$
+\end{itemize}\vspace{6mm}
+
+\noindent quad\_vertices():
+\begin{itemize}
+\item output: $out:=[x,y,x+w,y,x+w,y+h,x,y+h,]$
+\item exception: $exc:=\{(w<=0\lor h<=0) \Rightarrow ValueError\}$
+\end{itemize}\vspace{6mm}
+
+\newpage
+
+
+\section {World Module(M15)}
+
+\subsection{Module}
+World
+
+\subsection {Uses}
+\href{https://docs.python.org/3/library/sys.html}{sys}\\
+\href{https://docs.python.org/3/library/time.html}{time}\\
+\href{https://docs.python.org/3/library/random.html}{random}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/image/index.html}{pyglet.image} 
+\href{https://pyglet.readthedocs.io/en/latest/modules/gl.html}{pyglet.gl}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/graphics/#pyglet.graphics.TextureGroup}{pyglet.graphics.TextureGroup}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/window.html}{pyglet.window}\\
+\href{https://pyglet.readthedocs.io/en/latest/modules/window_key.html}{pyglet.window.key}\\
+processQueue.ProcessQueue\\
+shape.Shape3D\\
+loadSource
+
+\subsection {Syntax}
+
+\subsubsection {Exported Constants}
+None
+
+\subsubsection {Exported Types}
+World = ?
+
+\subsubsection {Exported Access Programs}
+\begin{table}[!htbp]
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+World & list of Block, int, int & ~ & ~\\
+\hline
+skyColor & ~ & tuple of float & ~\\
+\hline
+changeMode & str & ~ & ValueError\\
+\hline
+updateWorld & float, Player & ~ & ~\\
+\hline
+clearWorld & ~ & ~ & ~\\
+\hline
+changeWorld & World & ~ & ValueError\\
+\hline
+setupWorld & ~ & ~ & ~\\
+\hline
+collide & tuple of float, Creature & tuple of float & ~\\
+\hline
+hit\_test & tuple of float $\times 2$, int & tuple of float $\times 2$ & ~\\
+\hline
+add\_block & tuple of float, Block, bool & ~ & ValueError\\
+\hline
+remove\_block & tuple of float, bool & ~ & ValueError\\
+\hline
+\end{tabular}
+
+\end{table}
+\FloatBarrier
+
+\subsection {Semantics}
+
+\subsubsection {State Variables}
+batch: Batch\\
+world: World\\
+shown: \{tuple of float: Block\}\\
+\_shown: \{tuple of float: Batch\}\\
+sectors: \{tuple of int: [tuple of int]\}\\
+sectorSize: int\\
+processQueue: ProcessQueue\\
+gravity: int\\
+sector: tuple of int\\
+mode: str\\
+blocks: {str: block}
+
+\subsubsection {State Invariant}
+None
+
+\subsubsection {Assumptions}
+World() is called before any other access routine, and always call setupWprld() after calling World().
+
+\subsubsection {Access Routine Semantics}
+\noindent World(allBlocks, sectorSize = 16, gravity = 20):
+\begin{itemize}
+\item transition: batch $:=$ pyglet.graphics.Batch()\\
+    world, shown, \_shown, sectors $:=$ \{\}, \{\}, \{\}, \{\}\\
+    sectorSize $:=$ sectorSize\\
+    processQueue $:=$ ProcessQueue()\\
+    gravity $:=$ gravity\\
+    sector $:=$ Null\\
+    mode $:=$ ``day"\\
+    blocks $:=$ {name: block} in allBlocks
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent skyColor():
+\begin{itemize}
+\item output: 
+
+\begin{tabular}{|l|l|}
+\hhline{~|-|}
+\multicolumn{1}{r|}{} & \multicolumn{1}{l|}{$out :=$}\\
+\hhline{|-|-|}
+self.mode $=$ ``day" & (0.5, 0.69, 1.0, 1) \\
+\hhline{|-|-|}
+self.mode $=$ ``night" & (0.05, 0, 0.15, 1) \\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None 
+\end{itemize}\vspace{6mm}
+
+\noindent changeMode(mode):
+\begin{itemize}
+\item transition: self.mode $:=$ mode, if (mode = ``day" $\lor$ mode = ``night")
+\item exception: $exc := (\text{mode} \neq \text{``day"} \land \text{mode} \neq \text{``night"}) \Rightarrow \text{ValueError}$
+\end{itemize}\vspace{6mm}
+
+\noindent updateWorld(freshPeriod, player):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hhline{|-|-|}
+\multicolumn{2}{|l|}{processQueue.process\_queue(1.0/freshPeriod)}\\
+\multicolumn{2}{|l|}{sector $:=$ \_sectorize(player.position)}\\
+\hhline{|-|-|}
+sector $\neq$ self.sector & \_change\_sectors(self.sector, sector)\\
+\hhline{|-|-|}
+self.sector $=$ Null & processQueue.process\_entire\_queue() \\
+\hhline{|-|-|}
+\multicolumn{2}{|l|}{self.sector $:=$ sector}\\
+\hhline{|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent setupWorld():
+\begin{itemize}
+\item transition: position $:=$ (0,0,0)\\
+    world.clearWorld()\\
+    world.setupWorld()\\
+    changeScene(``game")
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent changeScene():
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|l|}
+\hhline{|-|-|-|-|}
+\multicolumn{4}{|l|}{n, s, y $:=$ 80, 1, 0}\\
+\hhline{|-|-|-|-|}
+\hspace{-2mm}for x in $(-n, n + 1)$: & \multicolumn{3}{|l|}{add\_block($(x, y - 2, z)$, GRASS, False)}\\
+\hspace{-1mm} for z in $(-n, n + 1)$: & \multicolumn{3}{|l|}{add\_block((x, y - 2, z), GRASS, False)}\\
+\hhline{|-|-|-|-|}
+\hspace{0mm}$(x \lor z)\in(-n, n)$ & for dy in $(-2, 3)$: & \multicolumn{2}{|l|}{\hspace{-1mm}add\_block($(x, y + dy, z)$, MARBLE, False)}\\
+\hhline{|-|-|-|-|}
+\multicolumn{4}{|l|}{o $:= n - 10$}\\
+\hhline{|-|-|-|-|}
+for \_ in 120: & \multicolumn{3}{|l|}{$a, b, c, d := \text{random}(-o, o), \text{random}(-o, o), -1, 1$}\\
+& \multicolumn{3}{|l|}{$h, s:= \text{random}(1, 6), \text{random}(4, 8)$}\\
+&\multicolumn{3}{|l|}{$t := \text{random([GRASS, STONE, BRICK])}$}\\
+\hhline{|~|-|-|-|}
+& \hspace{-2mm}for y in $(c, c + h)$: & $(x - a) ^ 2 + (z - b) ^ 2 > (s + 1) ^ 2$ & continue\\
+\hhline{|~|~|-|-|}
+& \hspace{-1mm}for x in $(a - s, a + s + 1)$: & $(x - 0) ^ 2 + (z - 0) ^ 2 < 5 ^ 2$ & continue\\
+\hhline{|~|~|-|-|}
+& \hspace{0mm}for z in $(b - s, b + s + 1)$: & \multicolumn{2}{|l|}{add\_block((x, y, z), t.name, False)}\\
+\hhline{|~|-|-|-|}
+& \multicolumn{3}{|l|}{$s := s - d$}\\
+\hhline{|-|-|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent collide(position, creature):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|l|}
+\hhline{|-|-|-|-|}
+\multicolumn{4}{|l|}{pad, p, np $:=$ 0.25, list(position), \_normalize(position)}\\
+\hhline{|-|-|-|-|}
+\hspace{-2mm} for face in allFaces: & $\neg$ face[i]: & \multicolumn{2}{|l|}{continue}\\
+\hhline{|~|-|-|-|}
+\hspace{-1mm} for i in $(3)$: & \multicolumn{3}{|l|}{$d := (p[i] - np[i]) \times face[i]$}\\
+\hhline{|~|-|-|-|}
+ & $d < pad$ & \multicolumn{2}{|l|}{continue}\\
+\hhline{|~|-|-|-|}
+ & \hspace{-2mm}for dy in & \multicolumn{2}{|l|}{op $:=$ list(np)}\\
+ & (creature.height): & \multicolumn{2}{|l|}{$op[1] := op[1] - dy$}\\
+ & & \multicolumn{2}{|l|}{$op[i] := op[i] + \text{face}[i]$}\\
+\hhline{|~|~|-|-|}
+ & & tuple(op) $\notin$ self.world: & continue\\
+\hhline{|~|~|-|-|}
+ & & \multicolumn{2}{|l|}{$p[i] := p[i] - (d - pad) \times \text{face}[i]$}\\
+\hhline{|~|~|-|-|}
+ & & face = $(0, -1, 0) \lor (0, 1, 0)$ & creature.dy $:= 0$\\
+\hhline{|~|-|-|-|}
+& \multicolumn{3}{|l|}{break}\\
+\hhline{|-|-|-|-|}
+\end{tabular}
+\item output: $out := tuple(p)$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent hit\_test(position, vector, max\_distance=8):
+\begin{itemize}
+\item transition and output: 
+
+\begin{tabular}{|l|l|l|}
+\hhline{|~|~|-|}
+\multicolumn{2}{l|}{} & $out := $\\
+\hhline{|-|-|-|}
+\multicolumn{2}{|l|}{m $:=$ 8; x, y, z $:=$ position; dx, dy, dz $:=$ vector; previous $:=$ None} & \\
+\hhline{|-|-|-|}
+\hspace{-2mm} for \_ in & key $:=$ \_normalize((x, y, z)) & \\
+\hhline{|~|-|-|}
+(max\_distance $\times$ m): & key $\neq$ previous $\land$ key $\in$ self.world & key, previous\\
+\hhline{|~|-|-|}
+& previous $:=$ key & \\
+& $x, y, z := x + dx / m, y + dy / m, z + dz / m$ & \\
+\hhline{|-|-|-|}
+\multicolumn{2}{|l|}{} & Null, Null\\
+\hhline{|-|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent add\_block(position, block, immediate=True):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|}
+\hhline{|-|-|-|}
+position $\in$ self.world & \multicolumn{2}{|l|}{remove\_block(position, immediate)}\\
+\hhline{|-|-|-|}
+\multicolumn{3}{|l|}{world[position] $:=$ block}\\
+\multicolumn{3}{|l|}{sectors.setdefault(\_sectorize(position), []).append(position)}\\
+\hhline{|-|-|-|}
+immediate & \_exposed(position) & show\_block(position)\\
+\hhline{|~|-|-|}
+ & \multicolumn{2}{|l|}{\_check\_neighbors(position)}\\
+\hhline{|-|-|-|}
+\end{tabular}
+\item exception: 
+
+\begin{tabular}{|l|l|}
+\hhline{|~|-|}
+\multicolumn{1}{l|}{} & $exc:=$\\
+\hhline{|-|-|}
+block $\notin$ self.blocks & ValueError\\
+\hhline{|-|-|}
+\end{tabular}
+\end{itemize}\vspace{6mm}
+
+\noindent remove\_block(position, immediate=True):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|}
+\hhline{|-|-|-|}
+\multicolumn{3}{|l|}{del self.world[position]}\\
+\multicolumn{3}{|l|}{sectors[\_sectorize(position)].remove(position)}\\
+\hhline{|-|-|-|}
+immediate & position $\in$ shown & hide\_block(position)\\
+\hhline{|~|-|-|}
+ & \multicolumn{2}{|l|}{\_check\_neighbors(position)}\\
+\hhline{|-|-|-|}
+\end{tabular}
+\item exception: 
+
+\begin{tabular}{|l|l|}
+\hhline{|~|-|}
+\multicolumn{1}{l|}{} & $exc:=$\\
+\hhline{|-|-|}
+block $\notin$ self.world & ValueError\\
+\hhline{|-|-|}
+\end{tabular}
+\end{itemize}\vspace{6mm}
+
+\subsection{Local Functions}
+
+\noindent \_show\_block(position, immediate=True):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hline
+immediate & block $:=$ self.blocks[self.world[position]] \\
+ & shown[position] $:=$ block\\
+ & x, y, z $:=$ position\\
+ & vertex\_data $:=$ Shape3D.cube\_vertices(x, y, z, 0.5)\\
+ & texture\_data $:=$ list(block.coordinates)\\
+ & \_shown[position] $:=$ batch.add(block.texture,vertex\_data, texture\_data)\\
+\hline
+$\neg$ immediate & processQueue.enqueue(show\_block, position, True) \\
+\hline
+\end{tabular}
+\item exception: 
+
+\begin{tabular}{|l|l|l|}
+\hhline{|~|~|-|}
+\multicolumn{2}{l|}{} & $exc:=$\\
+\hline
+immediate & position $\notin$ self.blocks & IndexError\\
+ & world[position] $\notin$ self.blocks & ValueError\\
+\hline
+\end{tabular}
+\end{itemize}\vspace{6mm}
+
+\noindent \_hide\_block(position, immediate=True):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|}
+\hline
+immediate & shown.pop(position)\\
+ & \_shown.pop(position).delete()\\
+\hline
+$\neg$ immediate & processQueue.enqueue(hide\_block, position, True) \\
+\hline
+\end{tabular}
+\item exception: 
+
+\begin{tabular}{|l|l|l|}
+\hhline{|~|~|-|}
+\multicolumn{2}{l|}{} & $exc:=$\\
+\hline
+immediate & position $\notin$ shown & IndexError\\
+\hline
+\end{tabular}
+\end{itemize}\vspace{6mm}
+
+\noindent  \_check\_neighbors(position):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|l|}
+\hhline{|-|-|-|-|}
+\multicolumn{4}{|l|}{x, y, z $:=$ position}\\
+\hhline{|-|-|-|-|}
+\hspace{-2mm} for dx, dy, dz & \multicolumn{3}{|l|}{key $:= (x + dx, y + dy, z + dz)$}\\
+\hhline{|~|-|-|-|}
+in allFaces: & key $\notin$ self.world & \multicolumn{2}{|l|}{continue}\\
+\hhline{|~|-|-|-|}
+ & \_exposed(key) & key $\notin$ shown & show\_block(key)\\
+\hhline{|~|-|-|-|}
+ & $\neg$ \_exposed(key) & key $\in$ shown & hide\_block(key)\\
+\hhline{|-|-|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_exposed(position):
+\begin{itemize}
+\item output: 
+
+\begin{tabular}{|l|l|l|}
+\hhline{|~|~|-|}
+\multicolumn{2}{l|}{} & $out:=$\\
+\hhline{|-|-|-|}
+\multicolumn{2}{|l|}{x, y, z $:=$ position} &\\
+\hhline{|-|-|-|}
+\hspace{-2mm} for dx, dy, dz & $(x + dx, y + dy, z + dz) \notin$ self.world & True\\
+in allFaces: & & \\
+\hhline{|-|-|-|}
+\multicolumn{2}{|l|}{} & False\\
+\hhline{|-|-|-|}
+\end{tabular}
+
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_show\_sector(sector):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|}
+\hline
+\hspace{-2mm}for position in  & position $\notin$ shown $\land$ & show\_block(position, False):\\
+sectors.get(sector, []) & self.\_exposed(position) &\\
+\hline
+\end{tabular}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_hide\_sector(sector):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|}
+\hline
+\hspace{-2mm}for position in  & position $\in$ shown & hide\_block(position, False)\\
+sectors.get(sector, []) & &\\
+\hline
+\end{tabular}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_change\_sectors(before, after):
+\begin{itemize}
+\item transition: 
+
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|l|}{before\_set, after\_set, pad $:=$ set(), set(), 4}\\
+\hline
+\hspace{-2mm}for dx in $(-pad, pad + 1)$: & $dx ^ 2 + dy ^ 2 + dz ^ 2 > $ & continue\\
+\hspace{-1mm}for dy in [0]: &$(pad + 1) ^ 2$ &\\
+\hhline{|~|-|-|}
+\hspace{0mm}for dz in $(-pad, pad + 1)$: & before & x, y, z $:=$ before\\
+ & & before\_set.add($(x + dx, y + dy, z + dz)$)\\
+\hhline{|~|-|-|}
+ & after & x, y, z $:=$ after\\
+ & & after\_set.add($(x + dx, y + dy, z + dz)$)\\
+\hline
+\multicolumn{3}{|l|}{show, hide $:=$ before\_set, after\_set}\\
+\hline
+for sector in show: & \multicolumn{2}{|l|}{\_show\_sector(sector)}\\
+\hline
+for sector in hide: & \multicolumn{2}{|l|}{\_hide\_sector(sector)}\\
+\hline
+\end{tabular}
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_sectorize(position):
+\begin{itemize}
+\item output: x, y, z $:=$ \_normalize(position)\\
+    x, y, z $:=$ x//sectorSize, y//sectorSize, z//sectorSize\\
+    $out:= (x, 0, z)$
+\item exception: None
+\end{itemize}\vspace{6mm}
+
+\noindent \_sectorize(position):
+\begin{itemize}
+\item output: x, y, z $:=$ position\\
+    x, y, z $:=$ (int(round(x)), int(round(y)), int(round(z)))\\
+    $out:= (x, y, z)$
+\item exception: None
+\end{itemize}\vspace{6mm}
+\newpage
+\end{document}

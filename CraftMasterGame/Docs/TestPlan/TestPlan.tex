@@ -1,0 +1,1002 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{threeparttable}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{placeins}
+\usepackage{hhline}
+\usepackage{natbib}
+\bibliographystyle{plain}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+
+\title{SE 3XA3: Test Plan\\CraftMaster}
+
+\author{Group 307, 3 Craftsmen\\
+		Hongqing Cao 400053625\\
+		Sida Wang	 400072157\\
+		Weidong Yang 400065354}
+
+
+
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\begin{table}[bp]
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+Feb 13th & 1.0 & Team info updated\\
+Feb 27th & 1.1 & General Content added\\
+Feb 28th & 1.1 & Tables and Figure added\\
+Feb 28th & 1.1 & Grammar Check\\
+Apr 5th & 2.0  & Completed for Rev1\\
+\bottomrule
+\end{tabularx}
+\caption{\bf Revision History}
+\end{table}
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document describes the scope, approach, resources, and schedule of the testing stage in the development process of CraftMaster. The format of this document follows the template provided by Dr.Bokhari and Thien Trandinh.
+
+\section{General Information}
+
+\subsection{Purpose}
+The main purpose of the testing stage of this project is to verify that the design team correctly transformed the requirements into functionalities of the system and those functionalities perform properly.
+\subsection{Scope}
+The functional requirements will be tested with traceability matrices and non-functional requirements will be tested with the fit-criterions defined in the SRS document. Each function will be tested individually by unit testing and the system will be tested as a whole by integration testing and edge case testing. The test cases described in this document will act as a means to check the traceability between the project specifications.
+\subsection{Acronyms, Abbreviations, and Symbols}
+\FloatBarrier
+\begin{table}[hbp]
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Abbreviation} & \textbf{Definition} \\
+\midrule
+SRS & Software Requirement Specification\\
+OS & Operating System\\
+GUI & Graphical User Interface\\
+\bottomrule
+\end{tabularx}
+\caption{\textbf{Table of Abbreviations}} \label{Table}
+\end{table}
+\FloatBarrier
+\FloatBarrier
+\begin{table}[!htbp]
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Term} & \textbf{Definition}\\
+\midrule
+Python & The programming language that is used for the developement of this project\\
+Pyglet & A Python library for the design of graphical user interface\\
+Pytest & A Python library and framework for unit testing\\
+Sandbox Games & A type of game that allows player to create, modify, and destroy the environment\\
+3D Game & A game in three dimensions\\
+
+\bottomrule
+\end{tabularx}
+\caption{\textbf{Table of Definitions}} \label{Table}
+\end{table}
+\FloatBarrier
+\subsection{Overview of Document}
+This document will act as a guideline for testing activities for CraftMaster.
+\section{Plan}
+
+\subsection{Software Description}
+    CraftMaster is a 3D sandbox game implemented in Python with \textbf{Pyglet} library, which allows users to play by building and destroying.
+\subsection{Test Team}
+    The individuals responsible for testing are Hongqing Cao, Sida Wang, and Weidong Yang. All testing works are splat evenly to those three testers.
+\subsection{Automated Testing Approach}\label{sec:2.3}
+    The test team will use \textbf{Pytest} to perform unit testing. After test cases created, \textbf{Pytest} can run automated tests and report code coverage and passes/failures. The time and task division of unit test cases are under the Gantt Chart of \ref{schedule}.
+\subsection{Testing Tools}
+    The testing tool will be used is shown in table below.
+    \begin{table}[!htb]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Testing Tool & Where to use & remarks \\
+        \hline
+        \textbf{Pytest} & Unit Testing & \\
+        \textbf{Python Time Library} & System Testing & NFR\\
+        \textbf{Google Form} & System Testing & NFR survey\\
+        \hline
+    \end{tabular}
+    \caption{\textbf{Testing Tools}}
+    \end{table}
+
+\subsection{Testing Schedule}\label{schedule}
+    See Gantt Chart \href{https://gitlab.cas.mcmaster.ca/wangs132/minecraft/-/blob/master/ProjectSchedule/ProjectSchedule_3XA3_307.pdf}{\textbf{HERE}}.
+
+\section{System Test Description}
+
+\subsection{Tests for Functional Requirements}
+Since the software game highly depends on the mouse and the keyboard inputs, and the game events are all triggered by these input elements, the test for functional requirements will be divided into two sections including testing for mouse inputs and testing for keyboard inputs.
+\subsubsection{Testing for Mouse Inputs}
+
+\begin{enumerate}
+
+
+
+
+
+\item{\textbf{TFR1: Test Game Start}\\}
+Relevant Functional Requirement id: \textbf{FR1, FR2}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game is installed and ready to execute.
+
+Input: A cursor placement on the game icon and a double-click on the left mouse key.
+
+Output: The program opens the GUI frame with main menu rendered.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the GUI is opened and the main menu is rendered.
+
+
+\item{\textbf{TFR2: Test Main Menu and Sub-Menus directions}\\}
+Relevant Functional Requirement id: \textbf{FR2.1}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is opened and the main menu is rendered.
+
+Input: Mouse clicks on the buttons on the main menu that direct to sub-menus and buttons on the sub-menus that direct to the main menu.
+
+Output: The program will go to sub-menus from the main menu and go to the main menu from sub-menus.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the GUI will go to sub-menus from the main menu and go to the main menu from sub-menus.
+
+\item{\textbf{TFR3: Test New Game}\\}
+Relevant Functional Requirement id: \textbf{FR2.1.1, FR3, FR4}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is opened and the game menu is rendered.
+
+Input: Mouse clicks on the "start new game" button.
+
+Output: The program will load a new game scene, initialize the character, and place the crosshair at the center of the window.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the program will load a new game scene, initialize the character, and place the crosshair at the center of the window.
+
+\item{\textbf{TFR4: Test Saved Game}\\}\label{saved}
+Relevant Functional Requirement id: \textbf{FR2.1.1, FR3, FR4}
+
+Type: Functional, Dynamic, Manual
+
+Initial State:  Based on the successful post condition of \hyperref[save]{\textbf{TFR14 Test Game Save}}.The GUI is opened and the game menu is rendered. There is a saved game scene.
+
+Input: A mouse clicks on the "load game" button and a mouse clicks on a game saving spot(Game One or Game Two).
+
+Output: The program will load a saved game scene, initialize the character, and place the crosshair at the center of the window.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the program will load a saved game scene, initialize the character, and place the crosshair at the center of the window.
+
+\item{\textbf{TFR5: Test Crosshair Position Stability}\\}
+Relevant Functional Requirement id: \textbf{FR4.1}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the crosshair is placed at the center of the GUI window.
+
+Input: A sequence of movements of the character(controlled by keyboard inputs) followed by a sequence of block operations(controlled by keyboard and mouse inputs).
+
+Output: The crosshair keeps in position(center of GUI window).
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the crosshair keeps its position.
+
+\item{\textbf{TFR6: Test Character Direction}\\}
+Relevant Functional Requirement id: \textbf{FR6}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded.
+
+Input: A movement of the mouse.
+
+Output: The character changes its view direction.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character changes its view direction.
+
+\item{\textbf{TFR7: Test Block Outline}\\}\label{outline}
+Relevant Functional Requirement id: \textbf{FR9}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. A block is near the character.
+
+Input: A movement of the mouse to aim the crosshair at the block.
+
+Output: The GUI shows the outline of the block(indicating the block is being aimed at).
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the outline of the block is shown.
+
+\item{\textbf{TFR8: Test Block Removal}\\}
+Relevant Functional Requirement id: \textbf{FR10, FR15}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. A block is near the character and the player has already aimed the crosshair at the block.
+
+Input: A left-click on the mouse.
+
+Output: The block is being removed from the window and the program plays a sound effect to notify.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the block is removed and whether the program plays a sound effect to notify this event.
+
+\item{\textbf{TFR9: Test Block Build}\\}
+\label{build}
+Relevant Functional Requirement id: \textbf{FR11, FR15}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. A block is near the character and the player has already aimed the crosshair at the block(the crosshair could be pointed to top, or bottom, or any side).
+
+Input: A right-click on the mouse.
+
+Output: The new block is being built at the position that is next to the surface of the existing block that the crosshair was pointed to and the program plays a sound effect to notify.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the new block is built in the right place. The tester will also check whether the program plays a sound effect to notify this event as well.
+
+\item{\textbf{TFR10: Test Background Music}\\}
+Relevant Functional Requirement id: \textbf{FR14}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game is installed and ready to execute.
+
+Input: A cursor placement on the game icon and a double-click on the left mouse key.
+
+Output: The program plays the background music of the game.
+
+How test will be performed: The tester will perform the input action and conduct a test to check whether the program plays the background music.
+
+\item{\textbf{TFR11: Test Marble Block Operations}\\}
+Relevant Functional Requirement id: \textbf{FR17}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: A crosshair is placed on a marble block.
+
+Input: A left-click on the mouse.
+
+Output: The marble is not removed.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the marble block is removed.
+
+\item{\textbf{TFR12: Test Day-Night Mode}\\}
+Relevant Functional Requirement id: \textbf{FR2.1.2, FR 12.2}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is at the setting menu or at the ESC menu.
+
+Input: A left-click on the Day-Night Mode switch.
+
+Output: The Day-Night mode changes.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the Day-Night mode changes.
+
+\item{\textbf{TFR13: Test Game Quit}\\}
+Relevant Functional Requirement id: \textbf{FR2.2}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is at the main menu.
+
+Input: A left-click on "quit" button on the main menu.
+
+Output: The program terminates and the GUI closes.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the GUI closes.
+
+\item{\textbf{TFR14: Test Game Save}\\}
+\label{save}
+Relevant Functional Requirement id: \textbf{FR12.3, FR13}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is at ESC menu.
+
+Input: A left-click on game saving and saving spot selection button.
+
+Output: The json file appears in the game folder.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the json file appears in the game folder.
+
+\item{\textbf{TFR15: Test ESC menu to Game menu}\\}
+Relevant Functional Requirement id: \textbf{FR12.1}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is at ESC menu.
+
+Input: A left-click on game saving and saving spot selection button.
+
+Output: The GUI returns to the game menu.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the GUI returns to the game menu.
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\subsubsection{Testing for Keyboard Inputs}
+\begin{enumerate}
+\item{\textbf{TFR16: Test Forward Movement}\\}
+\label{move}
+Relevant Functional Requirement id: \textbf{FR5.1}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. The character is free to move forward(no blocks are close to and at the front of the character).
+
+Input: A click on the ``W" key on the keyboard.
+
+Output: The character moves forward.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character moves forward.
+
+
+
+\item{\textbf{TFR17: Test Left Movement}\\}
+Relevant Functional Requirement id: \textbf{FR5.2}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. The character is free to move to the left(no blocks are close to and on the left of the character).
+
+Input: A click on the ``A" key on the keyboard.
+
+Output: The character moves to the left.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character moves to the left.
+
+\item{\textbf{TFR18: Test Backward Movement}\\}
+Relevant Functional Requirement id: \textbf{FR5.3}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. The character is free to move backward(no blocks are close to and at the back of the character).
+
+Input: A click on the ``S" key on the keyboard.
+
+Output: The character moves backward.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character moves backward.
+
+\item{\textbf{TFR19: Test Right Movement}\\}
+Relevant Functional Requirement id: \textbf{FR5.4}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. The character is free to move to the right(no blocks are close to and on the right of the character).
+
+Input: A click on the ``D" key on the keyboard.
+
+Output: The character moves to the right.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character moves to the right.
+
+\item{\textbf{TFR20: Test Jump Action}\\}\label{jump}
+Relevant Functional Requirement id: \textbf{FR7}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded.
+
+Input: A click on the space key on the keyboard.
+
+Output: The character jumps once.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character jumps.
+
+\item{\textbf{TFR21: Test Flying Mode}\\}
+Relevant Functional Requirement id: \textbf{FR8, FR8.1, FR8.2, FR8.3}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened and the game scene and character are loaded.
+
+Input: A click on the tab key, followed a sequence of clicks on the ``W" and ``S" keys, and followed by a click on the tab key on the keyboard.
+
+Output: The flying mode is activated, the character flies and then the flying mode is deactivated.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the tab key enables or disables the flying mode, and to check whether the ``W" and ``S" keys would control the character to fly under flying mode.
+
+\item{\textbf{TFR22: Test Block Type Change - Brick}\\}
+Relevant Functional Requirement id: \textbf{FR11.1}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: Based on the successful post condition of \hyperref[build]{\textbf{TFR9 Test Block Build}}. A block is near the character and the player has already aimed the crosshair at the block(the crosshair could be pointed to top, or bottom, or any side).
+
+Input: A click on the ``1" key on the keyboard, followed by a right-click on the mouse.
+
+Output: A brick block is built.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the block type is changed to brick.
+
+\item{\textbf{TFR23: Test Block Type Change - Grass}\\}
+Relevant Functional Requirement id: \textbf{FR11.2}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: Based on the successful post condition of \hyperref[build]{\textbf{TFR9 Test Block Build}}. A block is near the character and the player has already aimed the crosshair at the block(the crosshair could be pointed to top, or bottom, or any side).
+
+Input: A click on the ``2" key on the keyboard, followed by a right-click on the mouse.
+
+Output: A grass block is built.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the block type is changed to grass.
+
+\item{\textbf{TFR24: Test Block Type Change - Stone}\\}
+Relevant Functional Requirement id: \textbf{FR11.3}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: Based on the successful post condition of \hyperref[build]{\textbf{TFR9 Test Block Build}}. A block is near the character and the player has already aimed the crosshair at the block(the crosshair could be pointed to top, or bottom, or any side).
+
+Input: A click on the ``3" key on the keyboard, followed by a right-click on the mouse.
+
+Output: A stone block is built.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the block type is changed to stone.
+
+\item{\textbf{TFR25: Test ESC menu Open}\\}
+\label{cursor release}
+Relevant Functional Requirement id: \textbf{FR12}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The software game GUI is opened.
+
+Input: A click on the ``ESC" key on the keyboard.
+
+Output: The cursor is released from the GUI and the ESC menu opens.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the cursor is released and the ESC menu opens.
+
+\item{\textbf{TFR26: Test Block-Through Movement}\\}
+Relevant Functional Requirement id: \textbf{FR16}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: Based on the successful post condition of \hyperref[move]{\textbf{Test Movements TFR10, TFR11, TFR12, TFR13}}. The character is in a position where is surrounded by blocks.
+
+Input: A sequence of clicks on ``W", ``A", ``S", ``D".
+
+Output: The character does not move through the surrounding blocks.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character can move through the surrounding blocks.
+
+\item{\textbf{TFR27: Test Trivial Keys}\\}
+Relevant Functional Requirement id: \textbf{FR18}
+
+Type: Functional, Dynamic, Manual
+
+Initial State: The GUI is loaded with a game scene.
+
+Input: A sequence of mouse clicks on keys that are not assigned with any task, in this case use `Z', `P', `0', `;', `CTRL'.
+
+Output: The system does nothing to respond and also does not crash.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the system does nothing to respond and does not crash.
+
+
+\end{enumerate}
+
+
+\subsubsection{Tests for Exception or Edge Case}
+
+\begin{itemize}
+    \item{\textbf{TFR4.1: Test Saved Game Exception}\\}
+Relevant Functional Requirement id: \textbf{FR2.1.1, FR3, FR4}
+
+Type: Functional, Dynamic, Manual
+
+Consideration: This case is to test for the exception that loading the saved game when there is no saved game. It is associated with \hyperref[saved]{\bf TFR4 Test Saved Game}.
+
+Initial State: Based on the successful post condition of \hyperref[save]{\bf TFR14 Test Game Save}. The GUI is opened and the game menu is rendered. There is no saved game scene.
+
+Input: A mouse clicks on the ”load game” button and a mouse clicks on a game saving spot(Game One or Game Two).
+
+Output: The buttons that control the saving spot selection are not clickable and the system will not load a game scene.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the button controls the saving spot selection is not clickable and the system will not load a game scene.
+
+\item{\textbf{TFR20.1: Test Jump Action Edge}\\}
+Relevant Functional Requirement id: \textbf{FR7}
+
+Type: Functional, Dynamic, Manual
+
+Consideration: This case is to test for the exception that the player controls the character to jump when the character is in a narrow space(height is not enough to jump). It is associated with \hyperref[jump]{\bf TFR20 Test Jump Action}.
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. The character is in a narrow space.
+
+Input: A click on the space key on the keyboard.
+
+Output: The character does not jump.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the character jumps.
+
+\item{\textbf{TFR7.1: Test Block Outline Edge}\\}
+Relevant Functional Requirement id: \textbf{FR9}
+
+Type: Functional, Dynamic, Manual
+
+Consideration: This case is to test for the edge case that the player points the crosshair to the middle of two blocks that are in contact with each other. It is associated with \hyperref[outline]{\bf TFR7 Test Block Outline}.
+
+Initial State: The software game GUI is opened and the game scene and character are loaded. Two connected blocks are near the character.
+
+Input: A movement of the mouse to aim the crosshair at the middle of two blocks.
+
+Output: The GUI shows the outline of the block that is closer to the crosshair.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the outline of the block that is closer to the crosshair is shown.
+
+\item{\textbf{TFR28: Test Menu Click Exception}\\}
+Relevant Functional Requirement id: \textbf{FR2, FR2.1, FR2.1.1, FR2.1.2, FR2.2, FR 12, FR 12.1, FR 12.2, FR 12.3}
+
+Type: Functional, Dynamic, Manual
+
+Consideration: This case is to test for the exception that the player clicks on a empty space on any menu, which is associated with test cases on all menus. This test case will be used once for each menu.
+
+Initial State: The software game GUI is rendered with any menu.
+
+Input: A sequence of clicks on the empty spaces on the menu.
+
+Output: The software game does nothing to respond and does not crash.
+
+How test will be performed: The tester will perform the input action and conduct a visual test to check whether the software game does nothing to respond and does not crash.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Tests for Nonfunctional Requirements}
+
+\subsubsection{Testing for Look and Feel Requirements}
+
+\begin{enumerate}
+
+\item{\textbf{TNFR1 Test Look and Feel\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR1}
+
+Type: Dynamic, Manual
+
+Initial State: The game is installed and is given to a group of teenage players.
+
+Condition: The group should be satisfied with the attractiveness and style of the game.
+
+How test will be performed: One member of the testing team will assign a group of teenagers, give them the game to play and hand out \hyperref[s1]{\bf Survey 1} after they play the game.
+
+\end{enumerate}
+
+\subsubsection{Testing for Usability and Humanity Requirement}
+\begin{enumerate}
+
+\item{\textbf{TNFR2: Test Game Difficulty \\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR2}
+
+Type: Dynamic, Manual
+
+Initial State: The game is installed and is given to a group of random aged people to play.
+
+Condition: The group should be able to play the game with no difficulty.
+
+How test will be performed: One member of the testing team will assign a group of ten people from different age groups, give them the game to play and hand out \hyperref[s2]{\bf Survey 2} after they play the game.
+
+\item{\textbf{TNFR3: Test Learning Curve \\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR3}
+
+Type: Dynamic, Manual
+
+Initial State: The game is installed and is given to a group of random aged people to play.
+
+Condition: The group should be able to learn the game within a time between \textbf{LEARN\_MIN} to \textbf{LEARN\_MAX} minutes.
+
+How test will be performed: One member of the testing team will assign a group of ten people from different age groups, give them the game to play and hand out \hyperref[s3]{\bf Survey 3} after they play the game.
+\end{enumerate}
+
+
+
+\subsubsection{Testing for Performance Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR4: Test Speed\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR4}
+
+Type: Dynamic, Automated
+
+Initial State: The game is installed.
+
+Condition: The software game should respond to game events in less than \textbf{RESPONSE} second for 99\% of the interrogations and no response should take longer than \textbf{FALSE\_RESPONSE} second.
+
+
+How test will be performed: One member of the testing team will use the Python build-in Time library to count the execution time of \textbf{OPERATION\_NUM} operations in the program. All operations should take less than \textbf{RESPONSE} second.
+
+\item{\textbf{TNFR5: Test Availability\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR5}
+
+Type: Dynamic, Automated
+
+Initial State: The game is installed.
+
+Condition: The software game should allow access to the game at different times.
+
+How test will be performed: One member of the testing team will write a driver to randomly access the program in \textbf{TIME} minutes for \textbf{TRIES} times. The driver will be used two times on two different dates. The result should be all successful accesses to pass this test.
+
+\item{\textbf{TNFR6: Test Reliability\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR6}
+
+Type: Dynamic, Automated
+
+Initial State: The game is installed.
+
+Condition: The software game should run for five hours.
+
+How test will be performed: One member of the testing team will start the game and keep it for five hours. The game should run with no errors and failures during that time period to pass this test.
+
+\end{enumerate}
+\subsubsection{Testing for Operational and Environmental Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR7: Test Adjacent System Effect\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR7}
+
+Type: Dynamic, Manual
+
+Initial State: The game is installed.
+
+Condition: The software game should not produce any negative effects on adjacent systems.
+
+How test will be performed: One member of the testing team will execute the game and monitor the activities in the process monitor on the computer. The game should not cause other programs to terminate to pass this test.
+
+
+
+\end{enumerate}
+
+
+\subsubsection{Testing for Maintainability and Support Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR8: Test Adaptability\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR9}
+
+Type: Dynamic, Manual
+
+Initial State: The game is available to be downloaded from internet.
+
+Condition: The software game should be easily downloaded, installed, and opened onto both Windows and Linux OS.
+
+How test will be performed: One member of the testing team will download the game from the game website and install it onto both a Windows OS and a Linux OS and then open the game on both OS. There should be no unexpected issue happening during this process to pass the test.
+
+
+
+\end{enumerate}
+\subsubsection{Testing for Security Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR9: Test Integrity\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR10}
+
+Type: Dynamic, Manual
+
+Initial State: The game is installed.
+
+Condition: The software game should prevent low level threats.
+
+How test will be performed: One member of testing team will write a specific threat test case for intentional abuse to the game. There should be no errors or failures happening to pass the test.
+
+
+\end{enumerate}
+
+
+\subsubsection{Testing for Cultural Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR10: Test Cultural Politeness\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR11}
+
+Type: Dynamic, Manual
+
+Initial State: The game is installed and is given to a group of people from different cultural groups to play.
+
+Condition: The group should have satisfaction with the cultural politeness of the game.
+
+How test will be performed: One member of the testing team will assign a group of ten people from different cultural groups, give them the game to play and hand out \hyperref[s4]{Survey 4} after they play the game.
+
+
+\end{enumerate}
+
+
+\subsubsection{Testing for Legal Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR11: Test Compliance\\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR12}
+
+Type: combined with Dynamic and Static, Manual
+
+Initial State: The game is installed and the documentation is complete.
+
+Condition: The software product should not violate the Digital Millennuim Copy-right Act\cite{act}.
+
+How test will be performed: One member of the testing team will show the game and the documentation to a legal expert and get feedback. The feedback should say the software product does not violate the Digital Millennuim Copy-right Act\cite{act}.
+
+\end{enumerate}
+
+\subsubsection{Testing for Health and Safety Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR12: Test Safety \\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR13}
+
+Type: combined with Dynamic and Static, Manual
+
+Initial State: The game is installed and the documentation is complete.
+
+Condition: The software product should not generate any mental or physical threat to the players.
+
+How test will be performed: One member of the testing team will show the game and the documentation to a safety expert and get feedback. The feedback should say the software product does not generate any mental or physical threat to the players.
+
+
+
+\end{enumerate}
+\subsubsection{Testing for Robustness Requirements}
+\begin{enumerate}
+\item{\textbf{TNFR13: Test Robustness \\}}
+Relevant Nonfunctional Requirement id: \textbf{NFR14}
+
+Type: Dynamic, Manuel
+
+Initial State: The game is installed and ready to execute.
+
+Condition: The software program does not crash or generate unstable behaviours when receiving unexpected input.
+
+How test will be performed: One member of the testing team will open the game and start a new game. When the game scene is loaded, the tester will click on a key on the keyboard that is not assigned any task and observe the behaviour of the program.
+
+
+
+
+
+\end{enumerate}
+\subsection{Traceability Between Test Cases and Requirements}
+    \newpage
+    \FloatBarrier
+	\begin{longtable}{|l|cccccccc|}
+	\hline
+	\textbf{FR}&TFR1&TFR2&TFR3&TFR4&TFR4.1&TFR5&TFR6&TFR7\\
+	\hline
+	FR1&\checkmark&&&&&&&\\
+	FR2&\checkmark&&&&&&&\\
+	FR2.1&&\checkmark&&&&&&\\
+	FR2.1.1&&&\checkmark&\checkmark&\checkmark&&&\\
+	FR3&&&\checkmark&\checkmark&\checkmark&&&\\
+	FR4&&&\checkmark&\checkmark&\checkmark&&&\\
+	FR4.1&&&&&&\checkmark&&\\
+	FR6&&&&&&&\checkmark&\\
+	FR9&&&&&&&&\checkmark\\
+	\hline
+	\hline
+	\textbf{FR}&TRF7.1&TFR8&TFR9&TFR10&TFR11&TFR12&TFR13&TFR14\\
+	\hline
+	FR2.1.2&&&&&&\checkmark&&\\
+	FR2.2&&&&&&&\checkmark&\\
+	FR5.1&&&&&&&&\checkmark\\
+	FR9&\checkmark&&&&&&&\\
+	FR10&&\checkmark&&&&&&\\
+	FR11&&&\checkmark&&&&&\\
+	FR12.1&&&&&&&&\checkmark\\
+	FR12.2&&&&&&\checkmark&&\\
+	FR12.3&&&&&&&&\checkmark\\
+	FR13&&&&&&&&\checkmark\\
+	FR14&&&&\checkmark&&&&\\
+	FR15&&\checkmark&\checkmark&&&&&\\
+	FR17&&&&&\checkmark&&&\\
+	\hline
+	\hline
+	\textbf{FR}&TFR15&TFR16&TFR17&TFR18&TFR19&TFR20&TRF20.1&TFR21\\
+	\hline
+	FR5.1&&\checkmark&&&&&&\\
+	FR5.2&&&\checkmark&&&&&\\
+	FR5.3&&&&\checkmark&&&&\\
+	FR5.4&&&&&\checkmark&&&\\
+	FR7&&&&&&\checkmark&\checkmark&\\
+	FR8&&&&&&&&\checkmark\\
+	FR8.1&&&&&&&&\checkmark\\
+	FR8.2&&&&&&&&\checkmark\\
+	FR8.3&&&&&&&&\checkmark\\
+	FR12.1&\checkmark&&&&&&&\\
+	\hline
+    \end{longtable}
+\newpage
+\FloatBarrier
+    \begin{table}
+    \begin{tabular}{|l|cccccccc|}
+	\hline
+	\textbf{FR}&TFR22&TFR23&TFR24&TFR25&TFR26&TFR27&TFR28&~\\
+	\hline
+	FR2&&&&&&&\checkmark&~\\
+	FR2.1&&&&&&&\checkmark&~\\
+	FR2.1.1&&&&&&&\checkmark&~\\
+	FR2.1.2&&&&&&&\checkmark&~\\
+	FR2.2&&&&&&&\checkmark&~\\
+	FR11.1&\checkmark&&&&&&&~\\
+	FR11.2&&\checkmark&&&&&&~\\
+	FR11.3&&&\checkmark&&&&&~\\
+	FR12&&&&\checkmark&&&\checkmark&~\\
+	FR12.1&&&&&&&\checkmark&~\\
+	FR12.2&&&&&&&\checkmark&~\\
+	FR12.3&&&&&&&\checkmark&~\\
+	FR16&&&&&\checkmark&&&~\\
+	FR18&&&&&&\checkmark&&~\\
+	\hline
+	\end{tabular}
+	\caption{\bf Traceability Matrix for FRs}
+	\end{table}
+        
+    \begin{table}[!htb]
+        \begin{threeparttable}
+    		\begin{tabular}{|c|ccccccc|}
+        		\hline
+        		\textbf{NFR}&TNFR1&TNFR2&TNFR3&TNFR4&TNFR5&TNFR6&TNFR7\\
+        		\hline
+        		NFR1&\checkmark&&&&&&\\
+        		NFR2&&\checkmark&&&&&\\
+        		NFR3&&&\checkmark&&&&\\
+        		NFR4&&&&\checkmark&&&\\
+        		NFR5&&&&&\checkmark&&\\
+        		NFR6&&&&&&\checkmark&\\
+        		NFR7&&&&&&&\checkmark\\
+
+        		\hline
+    		\end{tabular}
+ 		\begin{tabular}{|c|cccccc|}
+    		\hline
+    		\textbf{NFR}&TNFR8&TNFR9&TNFR10&TNFR11&TNFR12&TNFR13\\
+    		\hline
+        	NFR9&\checkmark&&&&&\\
+    		NFR10&&\checkmark&&&&\\
+    		NFR11&&&\checkmark&&&\\
+    		NFR12&&&&\checkmark&&\\
+    		NFR13&&&&&\checkmark&\\
+    		NFR14&&&&&&\checkmark\\
+
+    		\hline
+    		\end{tabular}
+    				    \begin{tablenotes}
+            \item \textbf{Note: NFR8} is in terms of software updates and maintenance that is not testable.
+
+            \end{tablenotes}
+    		\caption{\bf Traceability Matrix for NFRs}
+
+        \end{threeparttable}
+    \end{table}
+
+    \FloatBarrier
+\section{Tests for Proof of Concept}
+There were not many issues or conflicts happened to the project's first Proof of Concept Demonstration. This section will focus on the area of testings including the product delivery style and 3D game perspectives. The testing plan described in this section is used for future Proof of Concept Demonstration preparations.
+\subsection*{Testing for Product Delivery Style}
+\begin{itemize}
+
+
+\item{\textbf{Test Executable Files}\\}
+How test will be performed:
+
+The development team will generate Windows version and Linux version executable files according to each update of the source code. The test team will ensure that each generated executable file will automatically open the game, has its unique icon, and not invoke the terminal window.
+
+\item{\textbf{Test Game Download}\\}
+How test will be performed:
+
+The development team will upload the executable files on the \href{http://rexwangsida.pythonanywhere.com/}{game website} for each release. The test team will ensure that the game download is stable, which means the game can be successfully downloaded and played.
+\end{itemize}
+\subsection*{Testing for 3D Game Perspectives}
+\begin{itemize}
+\item{\textbf{Test 3D Game Bugs}\\}
+How test will be performed:
+
+By following the principle of edge case testing, the test team will play the game and try to discover as many 3D game bugs as possible to keep the system stable and reliable.
+
+\end{itemize}
+
+
+\section{Comparison to Existing Implementation}
+
+\section{Unit Testing Plan}
+The \textbf{Pytest} framework and library will be used to accomplish unit testing for CraftMaster. The \textbf{Pytest} library provides sufficient testing functionalities and also supports automated testing approach as described in section \hyperref[sec:2.3]{\textbf{2.3}}.
+\subsection{Unit testing of internal functions}
+There will be one test file for each module of the implementation. For each method within the module, three test cases will be made, including one boundary value test case, one equivalence test case, and one exception test case. The unit testing stage will also check for the cases where nothing would happen to the system to ensure the robustness of the program. All mutator methods will be implicitly tested by performing test cases on accessor methods. With \textbf{Pytest} framework, each test case can be done by taking an individual method with inputs and giving it an expected return value. There will not be any drivers and stubs to be imported or implemented for the unit testing stage since it is supported by \textbf{Pytest} framework. Since \textbf{Pytest} supports coverage message, the test coverage will be checked according to the test report generated by \textbf{Pytest} instead of manual coverage metrics. For each test file, the coverage needs to exceed 90\%.
+\subsection{Unit testing of output files}
+The output files of CraftMaster include two types of files, one is the game saving output file(in the format of json) produced by the game module, and another is the texture image produced by the Image Processor. To complete the unit testing for these output files, the testing team will mock up expected output files and check the actual output files against them automatically.
+\bibliographystyle{plainnat}
+
+\bibliography{SRS}
+
+\newpage
+
+\section{Appendix}
+
+\subsection{NFR Surveys}
+
+
+\begin{itemize}
+        \item \textbf{Survey 1:}\label{s1} The survey will ask for the attractiveness(a rank between 1-10) and ``Minecraft-like Style"(basically saying how similar it is compared to Minecraft, a rank between 1-10) of the game, the average of the result should be above \textbf{AVG1} to pass the test.
+        \item \textbf{Survey 2:}\label{s2} The survey will ask for the difficulty of the game(a rank between 1-10), the average of the result should be below \textbf{AVG2} to pass this test.
+        \item \textbf{Survey 3:}\label{s3} The survey will ask for the learning time of the game, the average of the result should be between \textbf{LEARN\_MIN} to \textbf{LEARN\_MAX} minutes to pass this test.
+        \item \textbf{Survey 4:}\label{s4}  The survey will ask for the satisfaction of the cultural politeness of the game(a rank between 1-10), the average of the result should be above \textbf{AVG1} to pass this test.
+\end{itemize}
+
+\subsection{Survey Questions}
+
+\begin{center}
+\begin{tabular}{ |c|c| }
+ \hline
+ \textbf{Relevant Survey id} & \textbf{Survey Question}  \\
+ \hline
+ \textbf{1} & How do you like this game, rate it 1-10?  \\
+     & How does this game remind you of Minecraft, rate it 1-10?  \\
+ \hline
+  \textbf{2} & How difficult is this game, rate it 1-10?  \\
+ \hline
+   \textbf{3} & How long does it take you to learn this game?  \\
+ \hline
+    \textbf{4} & What is the level of cultural politeness of this game, rate it 1-10?  \\
+ \hline
+\end{tabular}
+\end{center}
+\subsection{Symbolic Parameters}
+
+\begin{itemize}
+    \item \textbf{AVG1: 7}
+    \item \textbf{AVG2: 3}
+    \item \textbf{LEARN\_MIN: 2}
+    \item \textbf{LEARN\_MAX: 30}
+    \item \textbf{RESPONSE: 0.1}
+    \item \textbf{FALSE\_RESPONSE: 0.5}
+    \item \textbf{OPERATION\_NUM: 10}
+    \item \textbf{TIME: 60}
+    \item \textbf{TRIES: 100}
+\end{itemize}
+\newpage
+\begin{thebibliography}{9}
+\bibitem{act} 
+”Video Games and the law: Copyright, 
+        Trademark and Intellectual Property”, NewMediaRights, 2020. [Online]. 
+        Available: https://www.newmediarights.org/guide/legal/Video\_Games\_law\_
+        Copyright\_Trademark\_Intellectual\_Property. [Accessed: 06- Feb- 
+        2020].
+\end{thebibliography}
+\end{document}
