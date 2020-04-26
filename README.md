@@ -32,10 +32,14 @@ pip install python
 ```shell
 pip install pyglet
 ```
-- To start the program, run:
+- To start the program, sequentially run:
 ```shell
 git clone https://github.com/RexWangSida/CraftMaster.git
+```
+```shell
 cd CraftMaster/CraftMasterGame/src
+```
+```shell
 python main.py
 ```
 - To learn the instruction of how to play the game, follow the [**CraftMaster User Guide**](https://github.com/RexWangSida/CraftMaster/blob/master/CraftMasterGame/Docs/UserGuide/UserGuide.pdf).
