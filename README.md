@@ -50,6 +50,7 @@ So far the executable game is only supported on Windows OS.
 - [ ] Mac OS
 
 The Mac OS version is still on the way.
+
 [Last Edited 04/26/2020]
 
 ## Acknowledgement 🎉
