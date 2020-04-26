@@ -23,7 +23,7 @@ The team has also developed and deployed a game website to hold the game for dow
 #### Run the game in terminal
 - This can be done in Windows PowerShell or Linux/Mac Terminal, and it requires git, python and pyglet, or at least pip.
 - To install pip, running:
-```bash
+```console
 sudo easy_install pip
 ```
 ## Open Issues
