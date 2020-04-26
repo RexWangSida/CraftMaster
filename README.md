@@ -9,7 +9,7 @@ The information of the group members are listed below:
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
 <img src="./CraftMasterGame/src/source/icon.png">
-The Official Game Website can be found [HERE](google.com).
+The Official Game Website can be found [HERE](google.com)
 
 ## What is CraftMaster?
 CraftMaster is a 3D sandbox game developed by three software engineering students at Mcmaster University. It is a reimplementation of [@fogleman/Minecraft](https://github.com/fogleman/Minecraft) which is developed by **_Michael Fogleman_**.
