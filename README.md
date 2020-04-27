@@ -52,7 +52,6 @@ So far the executable game is only supported on Windows OS.
 
 The Mac OS version is still on the way.
 
-[Last Edited 04/26/2020]
-
+_[Last Edited 04/26/2020]_
 ## Acknowledgement 🎉
 We gratefully thank **_Thien Trandinh_** for the guidance throughout the term and **_Michael Fogleman_** for giving us permissions to modify the amazing original project and allow us to develop CraftMaster on the base of it.
