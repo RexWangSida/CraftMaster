@@ -45,6 +45,10 @@ python main.py
 ```
 - To learn the instruction of how to play the game, follow the [**CraftMaster User Guide**](https://github.com/RexWangSida/CraftMaster/blob/master/CraftMasterGame/Docs/UserGuide/UserGuide.pdf).
 
+## CraftMaster Views🏔
+
+<img src="./CraftMasterGame/Views/view" width="50%" height="50%">
+<img src="./CraftMasterGame/Views/view1" width="50%" height="50%">
 ## Open Issues 🚑
 So far the executable game is only supported on Windows OS.
 - [x] Windows OS
