@@ -47,8 +47,9 @@ python main.py
 
 ## CraftMaster Views🏔
 
-<img src="./CraftMasterGame/Views/view" width="50%" height="50%">
-<img src="./CraftMasterGame/Views/view1" width="50%" height="50%">
+<img src="./CraftMasterGame/Views/view.png" width="50%" height="50%">
+<img src="./CraftMasterGame/Views/view1.png" width="50%" height="50%">
+
 ## Open Issues 🚑
 So far the executable game is only supported on Windows OS.
 - [x] Windows OS
