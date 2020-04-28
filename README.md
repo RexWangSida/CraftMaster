@@ -47,11 +47,11 @@ python main.py
 
 ## CraftMaster Views🏔
 
+<img src="./CraftMasterGame/Views/view4.png" width="50%" height="50%">
 <img src="./CraftMasterGame/Views/view.png" width="50%" height="50%">
 <img src="./CraftMasterGame/Views/view1.png" width="50%" height="50%">
 <img src="./CraftMasterGame/Views/view2.png" width="50%" height="50%">
 <img src="./CraftMasterGame/Views/view3.png" width="50%" height="50%">
-<img src="./CraftMasterGame/Views/view4.png" width="50%" height="50%">
 <img src="./CraftMasterGame/Views/view5.png" width="50%" height="50%">
 
 ## Open Issues 🚑
