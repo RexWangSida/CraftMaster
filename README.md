@@ -14,7 +14,7 @@ CraftMaster is a 3D sandbox game developed by three software engineering student
 We believe that the software design principles and software architectural design patterns we applied to the project significantly increased the quality of the software. The highlights of CraftMaster are the module decomposition and novel functionalities/features of the game.
 The team has also developed and deployed a game website to hold the game for downloading.
 
-<img src="./CraftMasterGame/src/source/icon.png" width="50%" height="50%">
+<div align = "center"><img src="./CraftMasterGame/src/source/icon.png" width="50%" height="50%"></div>
 
 ## Where to start❓
 #### Download the executable game and play
