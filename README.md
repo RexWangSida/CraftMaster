@@ -8,13 +8,12 @@ The information of the group members is listed below:
 | **Weidong Yang**    | Full-Stack Developer, Game Developer | someherokris@gmail.com |
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
-|**Content**         |
-|--------------------|
-|What is CraftMaster?|
-|Where to start?     |
-|CraftMaster Views   |
-|Open Issues         |
-|Acknowledgement     |
+## Content
+- [What is CraftMaster?](## What is CraftMaster❓)
+- Where to start?
+- CraftMaster Views
+- Open Issues
+- Acknowledgement
 
 ## What is CraftMaster❓
 
