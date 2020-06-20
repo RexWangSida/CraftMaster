@@ -9,7 +9,7 @@ The information of the group members is listed below:
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
 ## Content
-- [What is CraftMaster?](## What is CraftMaster❓)
+- [What is CraftMaster?](What is CraftMaster❓)
 - Where to start?
 - CraftMaster Views
 - Open Issues
