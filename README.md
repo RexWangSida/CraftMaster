@@ -8,7 +8,7 @@ The information of the group members is listed below:
 | **Weidong Yang**    | Full-Stack Developer, Game Developer | someherokris@gmail.com |
 | **Deuce Cao**       | Game Developer                       | caoh8@mcmaster.ca      |
 
-## Content
+## Table of Content
 - [**What is CraftMaster?**](#what)
 - [**Where to start?**](#where)
 - [**CraftMaster Views**](#views)
