@@ -8,6 +8,7 @@ WINDOW_HEIGHT = 600
 
 def main():
     game = Game(width=WINDOW_WIDTH, height=WINDOW_HEIGHT,caption='CraftMan', resizable=True, refreshRate = 100)
+    game.set_fullscreen()
     game.set_icon(ICON)
     BACKGROUNDMUSIC.play()
     pyglet.app.run()
