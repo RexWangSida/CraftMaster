@@ -31,6 +31,7 @@ The team has also developed and deployed a game website to hold the game for dow
 ### OR
 #### Run the game in terminal
 - This can be done in **Windows PowerShell** or **Linux/Mac Terminal**, and it requires **git**, **python** and **pyglet**, or at least **pip**.
+- The instruction of how to install **python** can be found at [**HERE**](https://www.python.org/downloads/).
 - The instruction of how to install **pip** can be found at [**HERE**](https://pip.pypa.io/en/stable/installing/).
 - The instruction of how to install **git** can be found at [**HERE**](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 - To install **python**(it requires pip to be installed), run:
