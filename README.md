@@ -1,5 +1,5 @@
 # Welcome to CraftMaster 👋
-Welcome to the repository of our Mcmaster SFWRENG 3XA3 Software Project, lead by **Prof. _Asghar Bokhari_** and supervised by **TA _Thien Trandinh_**.
+Welcome to the repository of our **Mcmaster SFWRENG 3XA3** Software Project, lead by **Prof. _Asghar Bokhari_** and supervised by **TA _Thien Trandinh_**.
 The information of the group members is listed below:
 
 | Group Member        | Role(s)                              | Contact Info           |
