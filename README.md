@@ -13,7 +13,7 @@ The information of the group members is listed below:
 - [**Where to start?**](#where)
 - [**CraftMaster Views**](#views)
 - [**Open Issues**](#open)
-- [**Acknowledgement**](#ac)
+- [**Special Thanks**](#ac)
 
 
 ## <a name = "what"> What is CraftMaster❓</a>
