@@ -34,6 +34,11 @@ class Game(pyglet.window.Window):
         self.lastScene = None
         self.currentScene  = None
         self.changeScene("main")
+        # https://stackoverflow.com/questions/62116953/mouse-not-drawing-in-pyglet
+        self.game_cursor = pyglet.image.load(os.path.join("texture", "mouse-small.png"))
+        self.cursor = pyglet.window.ImageMouseCursor(self.game_cursor, 0, 0)
+        self.set_mouse_cursor(self.cursor)
+
 
     def loadGame(self,file):
     ##  @brief read player position and world from the file
