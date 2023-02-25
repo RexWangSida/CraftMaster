@@ -1,6 +1,7 @@
 from __future__ import division
 
 import json,os
+from sys import platform
 
 from pyglet.gl import *
 
@@ -35,9 +36,11 @@ class Game(pyglet.window.Window):
         self.currentScene  = None
         self.changeScene("main")
         # https://stackoverflow.com/questions/62116953/mouse-not-drawing-in-pyglet
-        self.game_cursor = pyglet.image.load(os.path.join("texture", "mouse-small.png"))
-        self.cursor = pyglet.window.ImageMouseCursor(self.game_cursor, 0, 0)
-        self.set_mouse_cursor(self.cursor)
+        if platform == "linux" or platform == "linux2":
+            # linux
+            self.game_cursor = pyglet.image.load(os.path.join("texture", "mouse-small.png"))
+            self.cursor = pyglet.window.ImageMouseCursor(self.game_cursor, 0, 0)
+            self.set_mouse_cursor(self.cursor)
 
 
     def loadGame(self,file):
