@@ -40,7 +40,7 @@ pip install python
 ```
 - To install **pyglet**(it requires pip to be installed), run:
 ```shell
-pip install pyglet
+pip install pyglet==1.5.27
 ```
 - To start the program, sequentially run:
 ```shell
